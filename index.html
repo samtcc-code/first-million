@@ -10,7 +10,7 @@
 <style>
   /* ============================================================
      EDIT DATA IN ONE PLACE: the ENTRIES list in the <script>.
-     Gifs: CELEBRATION_GIFS, ENCOURAGEMENT_GIFS, FALLBACK_GIF.
+     Gifs: ENCOURAGEMENT_GIFS, FALLBACK_GIF.
      ============================================================ */
   :root{
     --lime:#9FDBC4;
@@ -92,22 +92,6 @@
   .lname small{display:block;font-family:'Space Mono',monospace;font-size:10px;color:#9a8fb0;font-weight:400}
   .lval{font-weight:800;font-size:16px;color:var(--lime);text-align:right}
 
-  /* hidden preview btn (shows only with ?preview) */
-  .preview{display:none;margin-top:18px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--ink);background:var(--tang);border:2px solid var(--ink);padding:9px 18px;border-radius:16px;cursor:pointer}
-  body.showpreview .preview{display:inline-block}
-
-  /* celebration */
-  #cel{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(20,16,24,.55);backdrop-filter:blur(5px);padding:20px}
-  #cel .card{background:var(--cream);border:4px solid var(--ink);border-radius:38px 32px 44px 36px;padding:24px 28px 30px;text-align:center;max-width:410px;width:100%;box-shadow:12px 14px 0 var(--magenta);animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
-  @keyframes pop{0%{transform:scale(.8) rotate(-4deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
-  #cel .gifbox{width:100%;height:210px;border-radius:26px;overflow:hidden;background:#eee;margin-bottom:18px;display:flex;align-items:center;justify-content:center;font-size:54px;border:3px solid var(--ink)}
-  #cel .gifbox img{width:100%;height:100%;object-fit:cover;display:block}
-  #cel h3{font-weight:800;font-size:30px;margin-bottom:6px;color:var(--raspberry)}
-  #cel p{font-family:'Space Mono',monospace;font-size:13px;color:var(--ink);margin-bottom:20px}
-  #cel button{background:var(--raspberry);color:var(--cream);border:3px solid var(--ink);font-weight:800;font-size:15px;padding:12px 28px;border-radius:18px;cursor:pointer;font-family:inherit;box-shadow:4px 5px 0 var(--ink);transition:.1s}
-  #cel button:hover{transform:translate(-2px,-2px);box-shadow:6px 7px 0 var(--ink)}
-  .confetti{position:fixed;width:12px;height:16px;top:-20px;z-index:49;pointer-events:none;border-radius:3px}
-
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   :focus-visible{outline:3px solid var(--raspberry);outline-offset:3px}
 </style>
@@ -126,7 +110,6 @@
       <div class="ofline">of <b>$1,000,000</b></div>
       <div><span class="pctbig" id="pct">0%</span></div>
       <div class="togo" id="togo"></div>
-      <button class="preview" id="demoBtn">▶ preview celebration</button>
     </div>
     <div class="jarwrap">
       <div class="blobjar">
@@ -152,15 +135,6 @@
   </div>
 </div>
 
-<div id="cel" role="dialog" aria-modal="true">
-  <div class="card">
-    <div class="gifbox" id="gifbox"></div>
-    <h3 id="celTitle"></h3>
-    <p id="celMsg"></p>
-    <button id="celClose">keep going ✦</button>
-  </div>
-</div>
-
 <script>
 /* ================================================================
    ▼▼▼  CONFIG  ▼▼▼
@@ -172,21 +146,42 @@ const DATA_URL = "data.csv"; // relative path in the repo
 
 let ENTRIES = [];  // filled from data.csv at load
 
-const CELEBRATION_GIFS = [
-  "https://media.giphy.com/media/g9582DNuQppxC/giphy.gif",
-  "https://media.giphy.com/media/26u4cqiYI30juCOGY/giphy.gif",
-  "https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif",
-  "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
-  "https://media.giphy.com/media/xT0xezQGU5xCDJuCPe/giphy.gif",
-];
 const ENCOURAGEMENT_GIFS = [
-  "https://media.giphy.com/media/3oz8xLd9DJq2l2VFtu/giphy.gif",
-  "https://media.giphy.com/media/l4FGpP4lxGGgK5CBW/giphy.gif",
-  "https://media.giphy.com/media/l0HlvtIPzPdt2usKs/giphy.gif",
-  "https://media.giphy.com/media/xUPGcEliCc7bTMLgFy/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMm5iazN3ajEyeXhlbGphZnU3cTJlbm13cjY3OXV1dnZqZmZ4YTg0MSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/vMAjWyzyAJ2HS/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMm5iazN3ajEyeXhlbGphZnU3cTJlbm13cjY3OXV1dnZqZmZ4YTg0MSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/W5ZUxqXT1lmiysXsDE/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcngzbnN6NzF1cG1mZDB0Nzc5bXNldmZhdmJqMmQ5NzAwMmVmZ2lwNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/MEuXWzbWfv2ZVmvj9R/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcngzbnN6NzF1cG1mZDB0Nzc5bXNldmZhdmJqMmQ5NzAwMmVmZ2lwNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HTDQIRWcDK4tjVTV97/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bmg2NGFoemM1ZDJnZjNteTEydDMzZnVweHN0bGtuZ2JheXNyZGExbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HLw7tkI8UuMgjhgVag/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3pnYzAzZm9ubmpoZmJmcGdtZHN5aHNhaGFqdjZzZnRrOTVlYTV0bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/XbmW3vJ4imLmQEyiPp/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnF1dWxvNXoxb3djbTQwcGljMWFtOHJtZGg5a2Ztd2dpdDE1ZDZ5MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o752cDjsI0SB4zdfy/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnF1dWxvNXoxb3djbTQwcGljMWFtOHJtZGg5a2Ztd2dpdDE1ZDZ5MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DNIHmjJcymsKxgMyhO/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnF1dWxvNXoxb3djbTQwcGljMWFtOHJtZGg5a2Ztd2dpdDE1ZDZ5MyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/T9GMlFOO4mFdnXekrJ/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3Y3E3aTV3dDlnemg1ejMzcWd3ejlvZmVmcHN5emdmYnN3M3k2aXhkOCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/j4qNF3xHuUZdtU4ILg/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGM3enk5cGc0Mmc5NzRzdWxyZTJ4OHdxOXEyemxndng5OGZzYmc4NyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xNBcChLQt7s9a/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGM3enk5cGc0Mmc5NzRzdWxyZTJ4OHdxOXEyemxndng5OGZzYmc4NyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/229OX0vSVNys10AZnS/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MjFuc3h0NGd0a3oya3o4djNqYWhuaGsxejl2ZTY2bHZpMnBid2Z6ZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/GXZVx7kiFQ1IuZpB8o/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3d2Y4bTdvM3BxeDg5aDg3cm5hbDl6Z29vdGRuYmtjdWZ1Y2J5bTlzNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/UdsRGimDSzo3EYOKZd/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3d2Y4bTdvM3BxeDg5aDg3cm5hbDl6Z29vdGRuYmtjdWZ1Y2J5bTlzNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/D9ykX6fvk6wEjol470/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3cDFjNm5iNTF4eXF1c2FwbGEwaWdobW1mZXE3eXVxNDN0anZ1azk4eCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/1dagNhv8Oqu6l8U3ZK/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3Nm8zaHp4eHZuZGRmM3pmeXMwcXNmejZjdDZocmN1cmxna3k0eGJpYiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/fAvjGWLksEnJQ3uaw3/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3Nm8zaHp4eHZuZGRmM3pmeXMwcXNmejZjdDZocmN1cmxna3k0eGJpYiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DYM3Jp7itZifOpzvAr/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eHNwcmZzNGkzeDV0NW56d3JhbGs5emI4ZDlxcjc4MTl3eWZrZmlvNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tl0PQoxf3VfrWzdYPp/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd25raDAxMjd1NDRldWFsMGtqMjRxempmd3MxNDRrb2g4YnZpMnRjNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3ohs4Az5xSJj0RYrss/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd25raDAxMjd1NDRldWFsMGtqMjRxempmd3MxNDRrb2g4YnZpMnRjNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/100PgquHm9j3sQ/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd25raDAxMjd1NDRldWFsMGtqMjRxempmd3MxNDRrb2g4YnZpMnRjNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xUPGcjQ6dJEjH5uwMw/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd25raDAxMjd1NDRldWFsMGtqMjRxempmd3MxNDRrb2g4YnZpMnRjNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/SmgUuWrvV90Z0M5cjG/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3d2d2MHZ6czR4OGxuOHB4dGoxY3F1NmJoaTl6NDcya2d2amtlYWh3ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xTiTnC6syZ9hJ2yTF6/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3d202bHZpMXM2cmQ4NGZrZ2h0aWRpdGh4Y3MzZDhjeTE4eHJyZHY1eCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/9MSdaKdslMmZD1Kd5l/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjNwdmE2YjI0b3B2Z3hkeWRwYnAyNHdvcHUybG00b2UwOGE5dGpwNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3WCNY2RhcmnwGbKbCi/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bWRzajhtMnlydmF3Z2Q0cnJ5MmczcGY4ZTNhYnFuZ3QwYzhzNGFzcSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/u2mnF8y7pd3xK/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHYzMWJjdXd2M2E5ZHFsZXpyeDVqMWN5ODA0dWhweWxta2IyazJweCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/MFZtTbAr0uZyP1b8pj/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dWVsZWFwbDRtajFpcnRmdm9pMzh1OXQ1Mmdld2IyZzFnaTJwNG4yZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ZeLV8cLUqpFFD0lEen/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MTJrZTRld20wOTJzNWRneThibWNzZXZ5YWZ2em1rdHY4YzFydGJvOSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/snqt91Zm9aV0lNpEBv/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MTJrZTRld20wOTJzNWRneThibWNzZXZ5YWZ2em1rdHY4YzFydGJvOSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5aMifNdsDCHEvKCqNI/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZGdoZHNvZmkxb3pwbjloNHllaHN1ejYzeGJjb2N5bW0wM216Z2Y0ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uB9M96WBK3K97jHSaI/giphy.gif",
 ];
 const ENCOURAGEMENT_LINES = [
-  "you're doing amazing","look how far you've come","every dollar counts. keep going","big things, one step at a time","proud of this team","we're so back"
+  "best team ever"
 ];
 const FALLBACK_GIF = "https://i.pinimg.com/originals/c4/47/88/c44788f45741b706b1323f2f0f186319.gif";
 /* ▲▲▲  STOP EDITING  ▲▲▲ */
@@ -211,9 +206,6 @@ function lighten(hex,amt){
   const mix=c=>Math.round(c+(255-c)*amt);
   return '#'+[mix(r),mix(g),mix(b)].map(v=>v.toString(16).padStart(2,'0')).join('');
 }
-
-// show preview button only with ?preview
-if(location.search.includes('preview'))document.body.classList.add('showpreview');
 
 let total=0, pct=0;
 
@@ -338,9 +330,6 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
     row.innerHTML=`<span class="lsw" style="background:linear-gradient(135deg, ${light}, ${base})"></span><span class="lname">${s}<small>${STREAM_META[s].note}</small></span><span class="lval">$${fmt(by[s])}</span>`;leg.appendChild(row);});
 })();
 
-// fire milestone celebration for the highest one reached
-const reached=MILESTONES.filter(m=>total>=m);
-if(reached.length)setTimeout(()=>celebrate(reached[reached.length-1]),2400);
 } /* ---- end init() ---- */
 
 /* ---------- ENCOURAGEMENT ---------- */
@@ -357,23 +346,6 @@ if(reached.length)setTimeout(()=>celebrate(reached[reached.length-1]),2400);
     line.style.opacity=0;setTimeout(()=>{line.textContent=ENCOURAGEMENT_LINES[li];line.style.opacity=1;},400);}
   show();setInterval(show,7000);
 })();
-
-/* ---------- CELEBRATION ---------- */
-function confetti(){const c=['#9FDBC4','#C9DBBA','#DCDBA8','#FAA381','#75DBCD'];
-  for(let i=0;i<110;i++){const p=document.createElement('div');p.className='confetti';p.style.left=Math.random()*100+'vw';p.style.background=c[i%c.length];const dur=2.6+Math.random()*1.9;
-    p.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translateY(105vh) rotate(${Math.random()*760}deg)`,opacity:.85}],{duration:dur*1000,easing:'cubic-bezier(.4,.1,.6,1)'});
-    document.body.appendChild(p);setTimeout(()=>p.remove(),dur*1000);}}
-let lastCelGif=-1;
-function celebrate(m){const box=document.getElementById('gifbox');
-  if(CELEBRATION_GIFS.length>1){let n;do{n=Math.floor(Math.random()*CELEBRATION_GIFS.length);}while(n===lastCelGif);lastCelGif=n;}else{lastCelGif=0;}
-  box.innerHTML='';
-  const img=new Image();img.onerror=()=>{const f=new Image();f.src=FALLBACK_GIF;box.innerHTML='';box.appendChild(f);};img.src=CELEBRATION_GIFS[lastCelGif];box.appendChild(img);
-  document.getElementById('celTitle').textContent=short(m)+' — '+MS_LABEL[m];
-  document.getElementById('celMsg').textContent=m===1000000?"a MILLION dollars. you did the thing.":`crossed ${short(m)}. look how far we've come.`;
-  document.getElementById('cel').style.display='flex';confetti();}
-document.getElementById('celClose').onclick=()=>document.getElementById('cel').style.display='none';
-document.getElementById('cel').onclick=e=>{if(e.target.id==='cel')document.getElementById('cel').style.display='none';};
-document.getElementById('demoBtn').onclick=()=>{const n=MILESTONES.find(m=>total<m)||1000000;celebrate(n);};
 
 /* ---------- LOAD DATA FROM GOOGLE SHEET, THEN RENDER ---------- */
 // Minimal CSV parser (handles quoted fields & commas inside quotes)

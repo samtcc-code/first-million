@@ -51,6 +51,6 @@ live-only: no file, no board (no fake fallback numbers).
 
 ## Editing gifs / colors
 Open `index.html`. Near the top of the `<script>` you'll find
-`CELEBRATION_GIFS`, `ENCOURAGEMENT_GIFS`, and `FALLBACK_GIF` — swap the
+`ENCOURAGEMENT_GIFS` and `FALLBACK_GIF` — swap the
 URLs. Colors are all hex values in the `<style>` block (see the palette
 list you were given).
