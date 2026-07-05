@@ -330,7 +330,7 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
   const leg=document.getElementById('legend');
   ORDER.forEach(s=>{const row=document.createElement('div');row.className='lrow';
     const base=STREAM_META[s].color, light=lighten(base,0.6);
-    row.innerHTML=`<span class="lsw" style="background:linear-gradient(135deg, ${light}, ${base})"></span><span class="lname">${s}<small>${STREAM_META[s].note}</small></span><span class="lval" style="color:${base}">$${fmt(by[s])}</span>`;leg.appendChild(row);});
+    row.innerHTML=`<span class="lsw" style="background:linear-gradient(135deg, ${light}, ${base})"></span><span class="lname">${s}<small>${STREAM_META[s].note}</small></span><span class="lval" style="text-color:${base}">$${fmt(by[s])}</span>`;leg.appendChild(row);});
 })();
 
 } /* ---- end init() ---- */
