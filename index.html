@@ -13,15 +13,14 @@
      Gifs: ENCOURAGEMENT_GIFS, FALLBACK_GIF.
      ============================================================ */
   :root{
-    --lime:#9FDBC4;
-    --magenta:#C9DBBA;
-    --grape:#DCDBA8;
-    --tang:#FAA381;
+    --aqua:#1be7ff;
+    --green:#6eeb83;
+    --chartreuse:#e4ff1a;
+    --amber:#ffb800;
+    --tiger:#ff5714;
     --cream:#fdfcf5;
     --ink:#141018;
-    --sky:#75DBCD;
-    --raspberry:#B33F62;
-    --navy:#0c0a3e;
+    --navy:#0b1e2b;
     --shadow:rgba(20,16,24,.16);
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -34,9 +33,9 @@
   /* drifting background goo */
   .goo{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;filter:blur(60px);opacity:.55}
   .blob-bg{position:absolute;border-radius:50%;mix-blend-mode:multiply;animation:drift 22s infinite ease-in-out alternate}
-  .bg1{width:440px;height:440px;background:var(--lime);top:-120px;left:-100px}
-  .bg2{width:400px;height:400px;background:var(--magenta);bottom:-140px;right:-80px;animation-duration:28s}
-  .bg3{width:320px;height:320px;background:var(--sky);top:40%;left:55%;animation-duration:19s}
+  .bg1{width:440px;height:440px;background:var(--green);top:-120px;left:-100px}
+  .bg2{width:400px;height:400px;background:var(--tiger);bottom:-140px;right:-80px;animation-duration:28s}
+  .bg3{width:320px;height:320px;background:var(--aqua);top:40%;left:55%;animation-duration:19s}
   @keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-40px) scale(1.15)}100%{transform:translate(-40px,50px) scale(.95)}}
 
   .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:40px 22px 90px}
@@ -44,37 +43,37 @@
   /* title */
   .mast{text-align:center;margin-bottom:30px}
   .mast h1{font-weight:800;font-size:clamp(38px,8vw,86px);line-height:.92;letter-spacing:-.03em;color:var(--ink);position:relative;display:inline-block;transform:rotate(-2deg)}
-  .mast h1 .pop{color:var(--raspberry);-webkit-text-stroke:2px var(--ink);text-stroke:2px var(--ink)}
-  .mast h1::after{content:"";position:absolute;left:6%;right:6%;bottom:2px;height:14px;background:var(--lime);z-index:-1;border-radius:20px;transform:rotate(1deg)}
+  .mast h1 .pop{color:var(--tiger);-webkit-text-stroke:2px var(--ink);text-stroke:2px var(--ink)}
+  .mast h1::after{content:"";position:absolute;left:6%;right:6%;bottom:2px;height:14px;background:var(--chartreuse);z-index:-1;border-radius:20px;transform:rotate(1deg)}
 
   /* hero blobby container */
-  .hero{background:var(--ink);border-radius:46px 46px 52px 40px;padding:40px;display:grid;grid-template-columns:1fr 260px;gap:30px;align-items:center;box-shadow:10px 12px 0 var(--grape);margin-bottom:22px}
-  @media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center;box-shadow:6px 8px 0 var(--grape)}}
+  .hero{background:var(--ink);border-radius:46px 46px 52px 40px;padding:40px;display:grid;grid-template-columns:1fr 260px;gap:30px;align-items:center;box-shadow:10px 12px 0 var(--amber);margin-bottom:22px}
+  @media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center;box-shadow:6px 8px 0 var(--amber)}}
   .hero .cash{color:var(--cream);text-align:center}
-  .money{font-weight:800;font-size:clamp(56px,13vw,120px);line-height:.86;letter-spacing:-.04em;color:var(--lime)}
-  .money .d{color:var(--tang)}
-  .ofline{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.02em;color:var(--sky);margin-top:10px}
+  .money{font-weight:800;font-size:clamp(56px,13vw,120px);line-height:.86;letter-spacing:-.04em;color:var(--green)}
+  .money .d{color:var(--tiger)}
+  .ofline{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.02em;color:var(--aqua);margin-top:10px}
   .ofline b{color:var(--cream)}
-  .pctbig{display:inline-block;margin-top:18px;background:var(--raspberry);color:var(--cream);font-weight:800;font-size:20px;padding:6px 16px;border-radius:16px 16px 18px 14px;transform:rotate(-1.5deg)}
+  .pctbig{display:inline-block;margin-top:18px;background:var(--tiger);color:var(--cream);font-weight:800;font-size:20px;padding:6px 16px;border-radius:16px 16px 18px 14px;transform:rotate(-1.5deg)}
   .togo{font-family:'Space Mono',monospace;font-size:12px;color:#b7a9d6;margin-top:12px}
 
   /* blob jar */
   .jarwrap{display:flex;flex-direction:column;align-items:center}
   .blobjar{width:190px;height:210px;position:relative}
   .blobjar svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-  .jarpct{font-family:'Space Mono',monospace;font-weight:700;font-size:15px;color:var(--lime);margin-top:6px;background:var(--ink);padding:4px 12px;border-radius:12px}
+  .jarpct{font-family:'Space Mono',monospace;font-weight:700;font-size:15px;color:var(--green);margin-top:6px;background:var(--ink);padding:4px 12px;border-radius:12px}
 
   /* encouragement sticker */
-  .encourage{background:var(--lime);border-radius:34px 30px 40px 32px;padding:14px;display:flex;flex-direction:column;gap:12px;margin-bottom:26px;box-shadow:7px 8px 0 var(--ink);transform:rotate(.6deg)}
+  .encourage{background:var(--green);border-radius:34px 30px 40px 32px;padding:14px;display:flex;flex-direction:column;gap:12px;margin-bottom:26px;box-shadow:7px 8px 0 var(--ink);transform:rotate(.6deg)}
   @media(min-width:701px){.encourage{flex-direction:row;align-items:center}}
-  .egif{width:100%;max-width:230px;height:140px;border-radius:24px;overflow:hidden;background:#F3C677;flex:none;display:flex;align-items:center;justify-content:center;border:3px solid var(--ink);margin:0 auto}
+  .egif{width:100%;max-width:230px;height:140px;border-radius:24px;overflow:hidden;background:var(--amber);flex:none;display:flex;align-items:center;justify-content:center;border:3px solid var(--ink);margin:0 auto}
   @media(min-width:701px){.egif{width:230px}}
   .egif img{width:100%;height:100%;object-fit:cover}
   .etext{flex:1;text-align:center;padding:6px 10px}
   .eline{font-weight:800;font-size:clamp(22px,3.4vw,32px);line-height:1.02;color:var(--ink);transition:opacity .45s}
 
   /* ribbon */
-  .ribbonbox{background:var(--cream);border:3px solid var(--ink);border-radius:40px 36px 44px 38px;padding:34px 24px 26px;margin-bottom:26px;box-shadow:7px 8px 0 var(--tang);overflow-x:auto}
+  .ribbonbox{background:var(--cream);border:3px solid var(--ink);border-radius:40px 36px 44px 38px;padding:34px 24px 26px;margin-bottom:26px;box-shadow:7px 8px 0 var(--amber);overflow-x:auto}
   .ribbonsvg{width:100%;min-width:580px;height:160px;display:block}
 
   /* pie */
@@ -84,16 +83,16 @@
   .pie svg{transform:rotate(-90deg)}
   .pie .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
   .pie .center .cv{font-weight:800;font-size:26px;color:var(--cream)}
-  .pie .center .cl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--lime)}
+  .pie .center .cl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
   .legend{display:flex;flex-direction:column;gap:11px;width:100%}
   .lrow{display:grid;grid-template-columns:16px 1fr auto;gap:12px;align-items:center;background:rgba(253,252,245,.1);padding:9px 14px;border-radius:16px}
   .lsw{width:16px;height:16px;border-radius:6px;border:2px solid var(--cream)}
   .lname{font-weight:600;font-size:14px;color:var(--cream)}
   .lname small{display:block;font-family:'Space Mono',monospace;font-size:10px;color:#9a8fb0;font-weight:400}
-  .lval{font-weight:800;font-size:16px;color:var(--lime);text-align:right}
+  .lval{font-weight:800;font-size:16px;color:var(--green);text-align:right}
 
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-  :focus-visible{outline:3px solid var(--raspberry);outline-offset:3px}
+  :focus-visible{outline:3px solid var(--tiger);outline-offset:3px}
 </style>
 </head>
 <body>
@@ -190,11 +189,11 @@ const GOAL=1000000;
 const MILESTONES=[100000,250000,500000,750000,1000000];
 const MS_LABEL={100000:"first $100k",250000:"quarter way",500000:"halfway",750000:"almost there",1000000:"one million"};
 const STREAM_META={
-  "Embedded Leadership":{note:"retainers & project fees",color:"#9FDBC4"},
-  "Handover Plan":{note:"tool + service",color:"#C9DBBA"},
-  "Continuity Kit":{note:"digital tool",color:"#75DBCD"},
-  "Speaking & Services":{note:"talks & consults",color:"#FAA381"},
-  "Meta":{note:"IG + FB payouts",color:"#FAAB8C"},
+  "Embedded Leadership":{note:"retainers & project fees",color:"#6eeb83"},
+  "Handover Plan":{note:"tool + service",color:"#1be7ff"},
+  "Continuity Kit":{note:"digital tool",color:"#e4ff1a"},
+  "Speaking & Services":{note:"talks & consults",color:"#ffb800"},
+  "Meta":{note:"IG + FB payouts",color:"#ff5714"},
 };
 const ORDER=["Embedded Leadership","Handover Plan","Continuity Kit","Speaking & Services","Meta"];
 const fmt=n=>n.toLocaleString('en-US',{maximumFractionDigits:n<100?2:0});
@@ -236,10 +235,10 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
   const defs=document.createElementNS(NS,'defs');
   defs.innerHTML=`<clipPath id="beakerclip"><path d="${body}"/></clipPath>
     <linearGradient id="jargrad" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0" stop-color="#C9DBBA"/><stop offset="1" stop-color="#DCDBA8"/></linearGradient>`;
+      <stop offset="0" stop-color="#1be7ff"/><stop offset="1" stop-color="#6eeb83"/></linearGradient>`;
   svg.appendChild(defs);
   // empty-glass tint
-  const bg=document.createElementNS(NS,'path');bg.setAttribute('d',body);bg.setAttribute('fill','#0c0a3e');svg.appendChild(bg);
+  const bg=document.createElementNS(NS,'path');bg.setAttribute('d',body);bg.setAttribute('fill','#0b1e2b');svg.appendChild(bg);
   // fill range: liquid moves between botY (0%) and goalY (100%)
   const goalY=topY+14;              // the $1M line, near the top
   const zeroY=botY;                 // empty level
@@ -256,23 +255,23 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
     const ty=zeroY-(i/4)*(zeroY-goalY);
     const tick=document.createElementNS(NS,'line');
     tick.setAttribute('x1',botR-2-i*0.5);tick.setAttribute('x2',botR-14);tick.setAttribute('y1',ty);tick.setAttribute('y2',ty);
-    tick.setAttribute('stroke','#9FDBC4');tick.setAttribute('stroke-width','2');tick.setAttribute('opacity','.55');svg.appendChild(tick);
+    tick.setAttribute('stroke','#6eeb83');tick.setAttribute('stroke-width','2');tick.setAttribute('opacity','.55');svg.appendChild(tick);
   }
   // dashed GOAL line at $1M
-  const gl=document.createElementNS(NS,'line');gl.setAttribute('x1',topL-4);gl.setAttribute('x2',topR+4);gl.setAttribute('y1',goalY);gl.setAttribute('y2',goalY);gl.setAttribute('stroke','#9FDBC4');gl.setAttribute('stroke-width','2.5');gl.setAttribute('stroke-dasharray','6 4');svg.appendChild(gl);
-  const glt=document.createElementNS(NS,'text');glt.setAttribute('x',topR+8);glt.setAttribute('y',goalY+4);glt.setAttribute('font-family','Space Mono,monospace');glt.setAttribute('font-size','10');glt.setAttribute('font-weight','700');glt.setAttribute('fill','#9FDBC4');glt.textContent='$1M';svg.appendChild(glt);
+  const gl=document.createElementNS(NS,'line');gl.setAttribute('x1',topL-4);gl.setAttribute('x2',topR+4);gl.setAttribute('y1',goalY);gl.setAttribute('y2',goalY);gl.setAttribute('stroke','#6eeb83');gl.setAttribute('stroke-width','2.5');gl.setAttribute('stroke-dasharray','6 4');svg.appendChild(gl);
+  const glt=document.createElementNS(NS,'text');glt.setAttribute('x',topR+8);glt.setAttribute('y',goalY+4);glt.setAttribute('font-family','Space Mono,monospace');glt.setAttribute('font-size','10');glt.setAttribute('font-weight','700');glt.setAttribute('fill','#6eeb83');glt.textContent='$1M';svg.appendChild(glt);
   // "you are here" arrow at current level (only if not basically empty/full)
   setTimeout(()=>{
     const arrow=document.createElementNS(NS,'g');arrow.setAttribute('opacity','0');
     const ax=botL-10;
-    arrow.innerHTML=`<text x="${ax-2}" y="${level-6}" text-anchor="end" font-family="Space Mono,monospace" font-size="8.5" font-weight="700" fill="#75DBCD">you are<tspan x="${ax-2}" dy="10">here</tspan></text>
-      <path d="M ${ax+4} ${level} l -10 -5 l 0 10 Z" fill="#75DBCD"/>
-      <line x1="${ax-6}" y1="${level}" x2="${ax+4}" y2="${level}" stroke="#75DBCD" stroke-width="2"/>`;
+    arrow.innerHTML=`<text x="${ax-2}" y="${level-6}" text-anchor="end" font-family="Space Mono,monospace" font-size="8.5" font-weight="700" fill="#1be7ff">you are<tspan x="${ax-2}" dy="10">here</tspan></text>
+      <path d="M ${ax+4} ${level} l -10 -5 l 0 10 Z" fill="#1be7ff"/>
+      <line x1="${ax-6}" y1="${level}" x2="${ax+4}" y2="${level}" stroke="#1be7ff" stroke-width="2"/>`;
     svg.appendChild(arrow);
     arrow.style.transition='opacity .6s';requestAnimationFrame(()=>arrow.setAttribute('opacity','1'));
   },1400);
   // glass outline + spout on top
-  const outline=document.createElementNS(NS,'path');outline.setAttribute('d',body);outline.setAttribute('fill','none');outline.setAttribute('stroke','#9FDBC4');outline.setAttribute('stroke-width','4');outline.setAttribute('stroke-linejoin','round');svg.appendChild(outline);
+  const outline=document.createElementNS(NS,'path');outline.setAttribute('d',body);outline.setAttribute('fill','none');outline.setAttribute('stroke','#6eeb83');outline.setAttribute('stroke-width','4');outline.setAttribute('stroke-linejoin','round');svg.appendChild(outline);
   // shine streak
   const sh=document.createElementNS(NS,'rect');sh.setAttribute('x','48');sh.setAttribute('y','44');sh.setAttribute('width','7');sh.setAttribute('height','92');sh.setAttribute('rx','4');sh.setAttribute('fill','rgba(255,255,255,.3)');svg.appendChild(sh);
 })();
@@ -285,21 +284,21 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
   const base=document.createElementNS(NS,'path');base.setAttribute('d',pathD);base.setAttribute('fill','none');base.setAttribute('stroke','#e7dfc9');base.setAttribute('stroke-width','16');base.setAttribute('stroke-linecap','round');svg.appendChild(base);
   const L=base.getTotalLength();
   const defs=document.createElementNS(NS,'defs');
-  defs.innerHTML=`<linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FAA381"/><stop offset="0.5" stop-color="#C9DBBA"/><stop offset="1" stop-color="#DCDBA8"/></linearGradient>`;svg.appendChild(defs);
+  defs.innerHTML=`<linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff5714"/><stop offset="0.5" stop-color="#ffb800"/><stop offset="1" stop-color="#6eeb83"/></linearGradient>`;svg.appendChild(defs);
   const prog=document.createElementNS(NS,'path');prog.setAttribute('d',pathD);prog.setAttribute('fill','none');prog.setAttribute('stroke','url(#rg)');prog.setAttribute('stroke-width','16');prog.setAttribute('stroke-linecap','round');prog.setAttribute('stroke-dasharray',L);prog.setAttribute('stroke-dashoffset',L);svg.appendChild(prog);
   setTimeout(()=>{prog.style.transition='stroke-dashoffset 2s cubic-bezier(.3,.8,.3,1)';prog.setAttribute('stroke-dashoffset',L*(1-pct/100));},350);
   const nextMs=MILESTONES.find(m=>total<m);
   MILESTONES.forEach(m=>{
     const pt=base.getPointAtLength(L*(m/GOAL));
     const hit=total>=m,isNext=m===nextMs;
-    const col=STREAM_META&&hit?'#C9DBBA':'#fff';
+    const col=STREAM_META&&hit?'#1be7ff':'#fff';
     const g=document.createElementNS(NS,'g');
     // googly blob marker
-    const c=document.createElementNS(NS,'circle');c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);c.setAttribute('r',hit?12:9);c.setAttribute('fill',hit?'#9FDBC4':'#fdfcf5');c.setAttribute('stroke','#141018');c.setAttribute('stroke-width',isNext?4:3);g.appendChild(c);
+    const c=document.createElementNS(NS,'circle');c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);c.setAttribute('r',hit?12:9);c.setAttribute('fill',hit?'#6eeb83':'#fdfcf5');c.setAttribute('stroke','#141018');c.setAttribute('stroke-width',isNext?4:3);g.appendChild(c);
     if(hit){const chk=document.createElementNS(NS,'path');chk.setAttribute('d',`M ${pt.x-4} ${pt.y} l 3 3.4 l 6 -7`);chk.setAttribute('fill','none');chk.setAttribute('stroke','#141018');chk.setAttribute('stroke-width','2.6');chk.setAttribute('stroke-linecap','round');chk.setAttribute('stroke-linejoin','round');g.appendChild(chk);}
     if(isNext){c.style.transformOrigin=`${pt.x}px ${pt.y}px`;const an=document.createElementNS(NS,'animateTransform');an.setAttribute('attributeName','transform');an.setAttribute('type','scale');an.setAttribute('values','1;1.18;1');an.setAttribute('dur','1.3s');an.setAttribute('repeatCount','indefinite');an.setAttribute('additive','sum');c.appendChild(an);}
     const t1=document.createElementNS(NS,'text');t1.setAttribute('x',pt.x);t1.setAttribute('y',pt.y-20);t1.setAttribute('text-anchor','middle');t1.setAttribute('font-family','Bricolage Grotesque,sans-serif');t1.setAttribute('font-size','17');t1.setAttribute('font-weight','800');t1.setAttribute('fill','#141018');t1.textContent=short(m);g.appendChild(t1);
-    const t2=document.createElementNS(NS,'text');t2.setAttribute('x',pt.x);t2.setAttribute('y',pt.y+28);t2.setAttribute('text-anchor','middle');t2.setAttribute('font-family','Space Mono,monospace');t2.setAttribute('font-size','8');t2.setAttribute('letter-spacing','.5');t2.setAttribute('fill',hit?'#141018':(isNext?'#B33F62':'#9a8fb0'));t2.textContent=(hit?MS_LABEL[m]:(isNext?short(m-total)+' to go':MS_LABEL[m]));g.appendChild(t2);
+    const t2=document.createElementNS(NS,'text');t2.setAttribute('x',pt.x);t2.setAttribute('y',pt.y+28);t2.setAttribute('text-anchor','middle');t2.setAttribute('font-family','Space Mono,monospace');t2.setAttribute('font-size','8');t2.setAttribute('letter-spacing','.5');t2.setAttribute('fill',hit?'#141018':(isNext?'#ff5714':'#9a8fb0'));t2.textContent=(hit?MS_LABEL[m]:(isNext?short(m-total)+' to go':MS_LABEL[m]));g.appendChild(t2);
     svg.appendChild(g);
   });
 })();
@@ -376,8 +375,8 @@ function showError(msg){
   const money=document.getElementById('money')||document.querySelector('.money');
   document.querySelector('.hero').innerHTML=
     '<div style="text-align:center;width:100%;color:var(--cream);padding:20px">'
-    +'<div style="font-weight:800;font-size:28px;color:var(--magenta)">no data yet</div>'
-    +'<div style="font-family:Space Mono,monospace;font-size:13px;color:var(--sky);margin-top:10px">'+msg+'</div></div>';
+    +'<div style="font-weight:800;font-size:28px;color:var(--tiger)">no data yet</div>'
+    +'<div style="font-family:Space Mono,monospace;font-size:13px;color:var(--aqua);margin-top:10px">'+msg+'</div></div>';
 }
 async function boot(){
   try{
