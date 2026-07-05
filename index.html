@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our First Million</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     EDIT DATA IN ONE PLACE: the ENTRIES list in the <script>.
+     Gifs: CELEBRATION_GIFS, ENCOURAGEMENT_GIFS, FALLBACK_GIF.
+     ============================================================ */
+  :root{
+    --lime:#c2f04a;
+    --magenta:#ff3d9a;
+    --grape:#7b2ff7;
+    --tang:#ff6b1a;
+    --cream:#fdfcf5;
+    --ink:#141018;
+    --sky:#4ad9ff;
+    --shadow:rgba(20,16,24,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Bricolage Grotesque',system-ui,sans-serif;
+    min-height:100vh;overflow-x:hidden;position:relative;
+  }
+  /* drifting background goo */
+  .goo{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;filter:blur(60px);opacity:.55}
+  .blob-bg{position:absolute;border-radius:50%;mix-blend-mode:multiply;animation:drift 22s infinite ease-in-out alternate}
+  .bg1{width:440px;height:440px;background:var(--lime);top:-120px;left:-100px}
+  .bg2{width:400px;height:400px;background:var(--magenta);bottom:-140px;right:-80px;animation-duration:28s}
+  .bg3{width:320px;height:320px;background:var(--sky);top:40%;left:55%;animation-duration:19s}
+  @keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-40px) scale(1.15)}100%{transform:translate(-40px,50px) scale(.95)}}
+
+  .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:40px 22px 90px}
+
+  /* title */
+  .mast{text-align:center;margin-bottom:30px}
+  .mast h1{font-weight:800;font-size:clamp(38px,8vw,86px);line-height:.92;letter-spacing:-.03em;color:var(--ink);position:relative;display:inline-block;transform:rotate(-2deg)}
+  .mast h1 .pop{color:var(--magenta);-webkit-text-stroke:2px var(--ink);text-stroke:2px var(--ink)}
+  .mast h1::after{content:"";position:absolute;left:6%;right:6%;bottom:2px;height:14px;background:var(--lime);z-index:-1;border-radius:20px;transform:rotate(1deg)}
+
+  /* hero blobby container */
+  .hero{background:var(--ink);border-radius:46px 46px 52px 40px;padding:40px;display:grid;grid-template-columns:1fr 260px;gap:30px;align-items:center;box-shadow:10px 12px 0 var(--grape);margin-bottom:22px}
+  @media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center;box-shadow:6px 8px 0 var(--grape)}}
+  .hero .cash{color:var(--cream)}
+  .money{font-weight:800;font-size:clamp(56px,13vw,120px);line-height:.86;letter-spacing:-.04em;color:var(--lime)}
+  .money .d{color:var(--magenta)}
+  .ofline{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.02em;color:var(--sky);margin-top:10px}
+  .ofline b{color:var(--cream)}
+  .pctbig{display:inline-block;margin-top:18px;background:var(--magenta);color:var(--cream);font-weight:800;font-size:20px;padding:6px 16px;border-radius:16px 16px 18px 14px;transform:rotate(-1.5deg)}
+  .togo{font-family:'Space Mono',monospace;font-size:12px;color:#b7a9d6;margin-top:12px}
+
+  /* blob jar */
+  .jarwrap{display:flex;flex-direction:column;align-items:center}
+  .blobjar{width:190px;height:210px;position:relative}
+  .blobjar svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .jarpct{font-family:'Space Mono',monospace;font-weight:700;font-size:15px;color:var(--lime);margin-top:6px;background:var(--ink);padding:4px 12px;border-radius:12px}
+
+  /* encouragement sticker */
+  .encourage{background:var(--lime);border-radius:34px 30px 40px 32px;padding:14px;display:flex;flex-direction:column;gap:12px;margin-bottom:26px;box-shadow:7px 8px 0 var(--ink);transform:rotate(.6deg)}
+  @media(min-width:701px){.encourage{flex-direction:row;align-items:center}}
+  .egif{width:100%;max-width:230px;height:140px;border-radius:24px;overflow:hidden;background:#a6d43f;flex:none;display:flex;align-items:center;justify-content:center;border:3px solid var(--ink);margin:0 auto}
+  @media(min-width:701px){.egif{width:230px}}
+  .egif img{width:100%;height:100%;object-fit:cover}
+  .etext{flex:1;text-align:center;padding:6px 10px}
+  @media(min-width:701px){.etext{text-align:left}}
+  .eline{font-weight:800;font-size:clamp(22px,3.4vw,32px);line-height:1.02;color:var(--ink);transition:opacity .45s}
+
+  /* ribbon */
+  .ribbonbox{background:var(--cream);border:3px solid var(--ink);border-radius:40px 36px 44px 38px;padding:34px 24px 26px;margin-bottom:26px;box-shadow:7px 8px 0 var(--tang);overflow-x:auto}
+  .ribbonsvg{width:100%;min-width:580px;height:160px;display:block}
+
+  /* pie */
+  .piewrap{background:var(--grape);border-radius:42px 38px 34px 46px;padding:34px;display:grid;grid-template-columns:220px 1fr;gap:34px;align-items:center;box-shadow:7px 8px 0 var(--ink)}
+  @media(max-width:640px){.piewrap{grid-template-columns:1fr;justify-items:center;text-align:center;gap:24px}}
+  .pie{width:200px;height:200px;position:relative}
+  .pie svg{transform:rotate(-90deg)}
+  .pie .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+  .pie .center .cv{font-weight:800;font-size:26px;color:var(--cream)}
+  .pie .center .cl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--lime)}
+  .legend{display:flex;flex-direction:column;gap:11px;width:100%}
+  .lrow{display:grid;grid-template-columns:16px 1fr auto;gap:12px;align-items:center;background:rgba(253,252,245,.1);padding:9px 14px;border-radius:16px}
+  .lsw{width:16px;height:16px;border-radius:6px;border:2px solid var(--ink)}
+  .lname{font-weight:600;font-size:14px;color:var(--cream)}
+  .lname small{display:block;font-family:'Space Mono',monospace;font-size:10px;color:#d6c8f5;font-weight:400}
+  .lval{font-weight:800;font-size:16px;color:var(--lime);text-align:right}
+
+  /* hidden preview btn (shows only with ?preview) */
+  .preview{display:none;margin-top:18px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--cream);background:var(--tang);border:2px solid var(--ink);padding:9px 18px;border-radius:16px;cursor:pointer}
+  body.showpreview .preview{display:inline-block}
+
+  /* celebration */
+  #cel{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(20,16,24,.55);backdrop-filter:blur(5px);padding:20px}
+  #cel .card{background:var(--cream);border:4px solid var(--ink);border-radius:38px 32px 44px 36px;padding:24px 28px 30px;text-align:center;max-width:410px;width:100%;box-shadow:12px 14px 0 var(--magenta);animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+  @keyframes pop{0%{transform:scale(.8) rotate(-4deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+  #cel .gifbox{width:100%;height:210px;border-radius:26px;overflow:hidden;background:#eee;margin-bottom:18px;display:flex;align-items:center;justify-content:center;font-size:54px;border:3px solid var(--ink)}
+  #cel .gifbox img{width:100%;height:100%;object-fit:cover;display:block}
+  #cel h3{font-weight:800;font-size:30px;margin-bottom:6px;color:var(--grape)}
+  #cel p{font-family:'Space Mono',monospace;font-size:13px;color:var(--ink);margin-bottom:20px}
+  #cel button{background:var(--magenta);color:var(--cream);border:3px solid var(--ink);font-weight:800;font-size:15px;padding:12px 28px;border-radius:18px;cursor:pointer;font-family:inherit;box-shadow:4px 5px 0 var(--ink);transition:.1s}
+  #cel button:hover{transform:translate(-2px,-2px);box-shadow:6px 7px 0 var(--ink)}
+  .confetti{position:fixed;width:12px;height:16px;top:-20px;z-index:49;pointer-events:none;border-radius:3px}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  :focus-visible{outline:3px solid var(--grape);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="goo"><div class="blob-bg bg1"></div><div class="blob-bg bg2"></div><div class="blob-bg bg3"></div></div>
+
+<div class="wrap">
+  <header class="mast">
+    <h1>Our First <span class="pop">Million</span></h1>
+  </header>
+
+  <section class="hero">
+    <div class="cash">
+      <div class="money"><span class="d">$</span><span id="total">0</span></div>
+      <div class="ofline">of <b>$1,000,000</b></div>
+      <div><span class="pctbig" id="pct">0%</span></div>
+      <div class="togo" id="togo"></div>
+      <button class="preview" id="demoBtn">▶ preview celebration</button>
+    </div>
+    <div class="jarwrap">
+      <div class="blobjar">
+        <svg viewBox="0 0 190 200" id="jarsvg"></svg>
+      </div>
+      <div class="jarpct" id="jarpct">0%</div>
+    </div>
+  </section>
+
+  <div class="encourage">
+    <div class="egif" id="egif"></div>
+    <div class="etext"><div class="eline" id="eline">you're doing amazing</div></div>
+  </div>
+
+  <div class="ribbonbox"><svg class="ribbonsvg" id="ribbon" viewBox="0 0 600 160" preserveAspectRatio="xMidYMid meet"></svg></div>
+
+  <div class="piewrap">
+    <div class="pie">
+      <svg width="200" height="200" viewBox="0 0 200 200" id="pie"></svg>
+      <div class="center"><div class="cv" id="pietotal">$0</div><div class="cl">total</div></div>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+</div>
+
+<div id="cel" role="dialog" aria-modal="true">
+  <div class="card">
+    <div class="gifbox" id="gifbox"></div>
+    <h3 id="celTitle"></h3>
+    <p id="celMsg"></p>
+    <button id="celClose">keep going ✦</button>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   ▼▼▼  CONFIG  ▼▼▼
+   Data lives in data.csv, sitting right next to this file in the
+   repo. Edit that file (GitHub UI, git, curl, or Claude Code) to
+   update the board. No external services. Live-only: no file = no board.
+   ================================================================ */
+const DATA_URL = "data.csv"; // relative path in the repo
+
+let ENTRIES = [];  // filled from data.csv at load
+
+const CELEBRATION_GIFS = [
+  "https://media.giphy.com/media/g9582DNuQppxC/giphy.gif",
+  "https://media.giphy.com/media/26u4cqiYI30juCOGY/giphy.gif",
+  "https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif",
+  "https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif",
+  "https://media.giphy.com/media/xT0xezQGU5xCDJuCPe/giphy.gif",
+];
+const ENCOURAGEMENT_GIFS = [
+  "https://media.giphy.com/media/3oz8xLd9DJq2l2VFtu/giphy.gif",
+  "https://media.giphy.com/media/l4FGpP4lxGGgK5CBW/giphy.gif",
+  "https://media.giphy.com/media/l0HlvtIPzPdt2usKs/giphy.gif",
+  "https://media.giphy.com/media/xUPGcEliCc7bTMLgFy/giphy.gif",
+];
+const ENCOURAGEMENT_LINES = [
+  "you're doing amazing","look how far you've come","every dollar counts. keep going","big things, one step at a time","proud of this team","we're so back"
+];
+const FALLBACK_GIF = "https://i.pinimg.com/originals/c4/47/88/c44788f45741b706b1323f2f0f186319.gif";
+/* ▲▲▲  STOP EDITING  ▲▲▲ */
+
+const GOAL=1000000;
+const MILESTONES=[100000,250000,500000,750000,1000000];
+const MS_LABEL={100000:"first $100k",250000:"quarter way",500000:"halfway",750000:"almost there",1000000:"one million"};
+const STREAM_META={
+  "Embedded Leadership":{note:"retainers & project fees",color:"#c2f04a"},
+  "Handover Plan":{note:"tool + service",color:"#ff3d9a"},
+  "Continuity Kit":{note:"digital tool",color:"#4ad9ff"},
+  "Speaking & Services":{note:"talks & consults",color:"#ff6b1a"},
+  "Meta":{note:"IG + FB payouts",color:"#ffd93d"},
+};
+const ORDER=["Embedded Leadership","Handover Plan","Continuity Kit","Speaking & Services","Meta"];
+const fmt=n=>n.toLocaleString('en-US',{maximumFractionDigits:n<100?2:0});
+const short=n=>n>=1000000?'$'+(n/1000000).toFixed(n%1000000?1:0)+'M':n>=1000?'$'+Math.round(n/1000)+'k':'$'+n;
+
+// show preview button only with ?preview
+if(location.search.includes('preview'))document.body.classList.add('showpreview');
+
+let total=0, pct=0;
+
+function init(){
+total=ENTRIES.reduce((s,e)=>s+e.amount,0);
+pct=Math.min(100,total/GOAL*100);
+
+// count up
+const tEl=document.getElementById('total');let cur=0,stepv=total/60;
+const ci=setInterval(()=>{cur+=stepv;if(cur>=total){cur=total;clearInterval(ci);}tEl.textContent=fmt(Math.floor(cur));},18);
+const pctTxt=pct.toFixed(pct<10?1:0)+'%';
+document.getElementById('pct').textContent=pctTxt;
+document.getElementById('jarpct').textContent=pctTxt;
+document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(GOAL-total)+' to go';
+
+/* ---------- BEAKER (fills toward the $1M line) ---------- */
+(function(){
+  const NS='http://www.w3.org/2000/svg';const svg=document.getElementById('jarsvg');
+  svg.setAttribute('viewBox','0 0 190 210');
+  // beaker geometry: slightly tapered, wider at base, spout lip at top
+  const topY=26, botY=192, topL=52, topR=138, botL=34, botR=156;
+  // body path (with a little pour spout on the top-left)
+  const body=`M ${topL} ${topY}
+    L ${topL-8} ${topY-6} L ${topL-2} ${topY+4}
+    L ${botL} ${botY-10} Q ${botL} ${botY} ${botL+12} ${botY}
+    L ${botR-12} ${botY} Q ${botR} ${botY} ${botR} ${botY-10}
+    L ${topR} ${topY} Z`;
+  const defs=document.createElementNS(NS,'defs');
+  defs.innerHTML=`<clipPath id="beakerclip"><path d="${body}"/></clipPath>
+    <linearGradient id="jargrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#ff3d9a"/><stop offset="1" stop-color="#7b2ff7"/></linearGradient>`;
+  svg.appendChild(defs);
+  // empty-glass tint
+  const bg=document.createElementNS(NS,'path');bg.setAttribute('d',body);bg.setAttribute('fill','#241a33');svg.appendChild(bg);
+  // fill range: liquid moves between botY (0%) and goalY (100%)
+  const goalY=topY+14;              // the $1M line, near the top
+  const zeroY=botY;                 // empty level
+  const level=zeroY-(Math.max(pct,2)/100)*(zeroY-goalY);
+  // liquid (clipped), animated wobble
+  const g=document.createElementNS(NS,'g');g.setAttribute('clip-path','url(#beakerclip)');svg.appendChild(g);
+  const liquid=document.createElementNS(NS,'path');liquid.setAttribute('fill','url(#jargrad)');g.appendChild(liquid);
+  function waveD(y,phase){let d=`M 20 ${y}`;for(let x=20;x<=170;x+=18){const yy=y+Math.sin((x/18)+phase)*3;d+=` L ${x} ${yy.toFixed(1)}`;}d+=` L 170 200 L 20 200 Z`;return d;}
+  let phase=0,targetY=level,curY=zeroY;
+  setTimeout(()=>{const rise=setInterval(()=>{curY+=(targetY-curY)*0.08;if(Math.abs(curY-targetY)<0.4)clearInterval(rise);},16);},300);
+  function loop(){phase+=0.05;liquid.setAttribute('d',waveD(curY,phase));requestAnimationFrame(loop);}loop();
+  // measurement ticks up the right side
+  for(let i=1;i<=4;i++){
+    const ty=zeroY-(i/4)*(zeroY-goalY);
+    const tick=document.createElementNS(NS,'line');
+    tick.setAttribute('x1',botR-2-i*0.5);tick.setAttribute('x2',botR-14);tick.setAttribute('y1',ty);tick.setAttribute('y2',ty);
+    tick.setAttribute('stroke','#c2f04a');tick.setAttribute('stroke-width','2');tick.setAttribute('opacity','.55');svg.appendChild(tick);
+  }
+  // dashed GOAL line at $1M
+  const gl=document.createElementNS(NS,'line');gl.setAttribute('x1',topL-4);gl.setAttribute('x2',topR+4);gl.setAttribute('y1',goalY);gl.setAttribute('y2',goalY);gl.setAttribute('stroke','#c2f04a');gl.setAttribute('stroke-width','2.5');gl.setAttribute('stroke-dasharray','6 4');svg.appendChild(gl);
+  const glt=document.createElementNS(NS,'text');glt.setAttribute('x',topR+8);glt.setAttribute('y',goalY+4);glt.setAttribute('font-family','Space Mono,monospace');glt.setAttribute('font-size','10');glt.setAttribute('font-weight','700');glt.setAttribute('fill','#c2f04a');glt.textContent='$1M';svg.appendChild(glt);
+  // "you are here" arrow at current level (only if not basically empty/full)
+  setTimeout(()=>{
+    const arrow=document.createElementNS(NS,'g');arrow.setAttribute('opacity','0');
+    const ax=botL-10;
+    arrow.innerHTML=`<text x="${ax-2}" y="${level-6}" text-anchor="end" font-family="Space Mono,monospace" font-size="8.5" font-weight="700" fill="#4ad9ff">you are<tspan x="${ax-2}" dy="10">here</tspan></text>
+      <path d="M ${ax+4} ${level} l -10 -5 l 0 10 Z" fill="#4ad9ff"/>
+      <line x1="${ax-6}" y1="${level}" x2="${ax+4}" y2="${level}" stroke="#4ad9ff" stroke-width="2"/>`;
+    svg.appendChild(arrow);
+    arrow.style.transition='opacity .6s';requestAnimationFrame(()=>arrow.setAttribute('opacity','1'));
+  },1400);
+  // glass outline + spout on top
+  const outline=document.createElementNS(NS,'path');outline.setAttribute('d',body);outline.setAttribute('fill','none');outline.setAttribute('stroke','#c2f04a');outline.setAttribute('stroke-width','4');outline.setAttribute('stroke-linejoin','round');svg.appendChild(outline);
+  // shine streak
+  const sh=document.createElementNS(NS,'rect');sh.setAttribute('x','48');sh.setAttribute('y','44');sh.setAttribute('width','7');sh.setAttribute('height','92');sh.setAttribute('rx','4');sh.setAttribute('fill','rgba(255,255,255,.3)');svg.appendChild(sh);
+})();
+
+/* ---------- RIBBON JOURNEY ---------- */
+(function(){
+  const svg=document.getElementById('ribbon');const NS='http://www.w3.org/2000/svg';
+  const W=600,padX=52,y0=100;
+  const pathD=`M ${padX} ${y0} C ${W*0.26} ${y0-58}, ${W*0.44} ${y0+44}, ${W*0.56} ${y0-6} S ${W*0.82} ${y0-50}, ${W-padX} ${y0-30}`;
+  const base=document.createElementNS(NS,'path');base.setAttribute('d',pathD);base.setAttribute('fill','none');base.setAttribute('stroke','#e7dfc9');base.setAttribute('stroke-width','16');base.setAttribute('stroke-linecap','round');svg.appendChild(base);
+  const L=base.getTotalLength();
+  const defs=document.createElementNS(NS,'defs');
+  defs.innerHTML=`<linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff6b1a"/><stop offset="0.5" stop-color="#ff3d9a"/><stop offset="1" stop-color="#7b2ff7"/></linearGradient>`;svg.appendChild(defs);
+  const prog=document.createElementNS(NS,'path');prog.setAttribute('d',pathD);prog.setAttribute('fill','none');prog.setAttribute('stroke','url(#rg)');prog.setAttribute('stroke-width','16');prog.setAttribute('stroke-linecap','round');prog.setAttribute('stroke-dasharray',L);prog.setAttribute('stroke-dashoffset',L);svg.appendChild(prog);
+  setTimeout(()=>{prog.style.transition='stroke-dashoffset 2s cubic-bezier(.3,.8,.3,1)';prog.setAttribute('stroke-dashoffset',L*(1-pct/100));},350);
+  const nextMs=MILESTONES.find(m=>total<m);
+  MILESTONES.forEach(m=>{
+    const pt=base.getPointAtLength(L*(m/GOAL));
+    const hit=total>=m,isNext=m===nextMs;
+    const col=STREAM_META&&hit?'#ff3d9a':'#fff';
+    const g=document.createElementNS(NS,'g');
+    // googly blob marker
+    const c=document.createElementNS(NS,'circle');c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);c.setAttribute('r',hit?12:9);c.setAttribute('fill',hit?'#c2f04a':'#fdfcf5');c.setAttribute('stroke','#141018');c.setAttribute('stroke-width',isNext?4:3);g.appendChild(c);
+    if(hit){const chk=document.createElementNS(NS,'path');chk.setAttribute('d',`M ${pt.x-4} ${pt.y} l 3 3.4 l 6 -7`);chk.setAttribute('fill','none');chk.setAttribute('stroke','#141018');chk.setAttribute('stroke-width','2.6');chk.setAttribute('stroke-linecap','round');chk.setAttribute('stroke-linejoin','round');g.appendChild(chk);}
+    if(isNext){c.style.transformOrigin=`${pt.x}px ${pt.y}px`;const an=document.createElementNS(NS,'animateTransform');an.setAttribute('attributeName','transform');an.setAttribute('type','scale');an.setAttribute('values','1;1.18;1');an.setAttribute('dur','1.3s');an.setAttribute('repeatCount','indefinite');an.setAttribute('additive','sum');c.appendChild(an);}
+    const t1=document.createElementNS(NS,'text');t1.setAttribute('x',pt.x);t1.setAttribute('y',pt.y-20);t1.setAttribute('text-anchor','middle');t1.setAttribute('font-family','Bricolage Grotesque,sans-serif');t1.setAttribute('font-size','17');t1.setAttribute('font-weight','800');t1.setAttribute('fill','#141018');t1.textContent=short(m);g.appendChild(t1);
+    const t2=document.createElementNS(NS,'text');t2.setAttribute('x',pt.x);t2.setAttribute('y',pt.y+28);t2.setAttribute('text-anchor','middle');t2.setAttribute('font-family','Space Mono,monospace');t2.setAttribute('font-size','8');t2.setAttribute('letter-spacing','.5');t2.setAttribute('fill',hit?'#7b2ff7':(isNext?'#ff3d9a':'#9a8fb0'));t2.textContent=(hit?MS_LABEL[m]:(isNext?short(m-total)+' to go':MS_LABEL[m]));g.appendChild(t2);
+    svg.appendChild(g);
+  });
+})();
+
+/* ---------- DONUT PIE ---------- */
+(function(){
+  const by={};ORDER.forEach(s=>by[s]=0);
+  ENTRIES.forEach(e=>{if(by[e.stream]!==undefined)by[e.stream]+=e.amount;});
+  const sum=Object.values(by).reduce((a,b)=>a+b,0)||1;
+  const svg=document.getElementById('pie');const NS='http://www.w3.org/2000/svg';
+  const cx=100,cy=100,r=76,sw=32;const C=2*Math.PI*r;let offset=0;
+  ORDER.forEach(s=>{const frac=by[s]/sum;if(frac<=0)return;
+    const circ=document.createElementNS(NS,'circle');circ.setAttribute('cx',cx);circ.setAttribute('cy',cy);circ.setAttribute('r',r);circ.setAttribute('fill','none');circ.setAttribute('stroke',STREAM_META[s].color);circ.setAttribute('stroke-width',sw);circ.setAttribute('stroke-dasharray',`${frac*C} ${C}`);circ.setAttribute('stroke-dashoffset',-offset*C);svg.appendChild(circ);offset+=frac;});
+  document.getElementById('pietotal').textContent=short(sum);
+  const leg=document.getElementById('legend');
+  ORDER.forEach(s=>{const row=document.createElement('div');row.className='lrow';
+    row.innerHTML=`<span class="lsw" style="background:${STREAM_META[s].color}"></span><span class="lname">${s}<small>${STREAM_META[s].note}</small></span><span class="lval">$${fmt(by[s])}</span>`;leg.appendChild(row);});
+})();
+
+// fire milestone celebration for the highest one reached
+const reached=MILESTONES.filter(m=>total>=m);
+if(reached.length)setTimeout(()=>celebrate(reached[reached.length-1]),2400);
+} /* ---- end init() ---- */
+
+/* ---------- ENCOURAGEMENT ---------- */
+(function(){
+  const box=document.getElementById('egif'),line=document.getElementById('eline');
+  let i=Math.floor(Math.random()*ENCOURAGEMENT_GIFS.length);
+  function show(){box.innerHTML='';const img=new Image();
+    img.onerror=()=>{const f=new Image();f.src=FALLBACK_GIF;box.innerHTML='';box.appendChild(f);};
+    img.onload=()=>{box.innerHTML='';box.appendChild(img);};
+    img.src=ENCOURAGEMENT_GIFS[i%ENCOURAGEMENT_GIFS.length];
+    line.style.opacity=0;setTimeout(()=>{line.textContent=ENCOURAGEMENT_LINES[i%ENCOURAGEMENT_LINES.length];line.style.opacity=1;},400);i++;}
+  show();setInterval(show,7000);
+})();
+
+/* ---------- CELEBRATION ---------- */
+function confetti(){const c=['#c2f04a','#ff3d9a','#7b2ff7','#ff6b1a','#4ad9ff'];
+  for(let i=0;i<110;i++){const p=document.createElement('div');p.className='confetti';p.style.left=Math.random()*100+'vw';p.style.background=c[i%c.length];const dur=2.6+Math.random()*1.9;
+    p.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translateY(105vh) rotate(${Math.random()*760}deg)`,opacity:.85}],{duration:dur*1000,easing:'cubic-bezier(.4,.1,.6,1)'});
+    document.body.appendChild(p);setTimeout(()=>p.remove(),dur*1000);}}
+let gi=Math.floor(Math.random()*CELEBRATION_GIFS.length);
+function celebrate(m){const box=document.getElementById('gifbox');gi=(gi+1)%CELEBRATION_GIFS.length;box.innerHTML='';
+  const img=new Image();img.onerror=()=>{const f=new Image();f.src=FALLBACK_GIF;box.innerHTML='';box.appendChild(f);};img.src=CELEBRATION_GIFS[gi];box.appendChild(img);
+  document.getElementById('celTitle').textContent=short(m)+' — '+MS_LABEL[m];
+  document.getElementById('celMsg').textContent=m===1000000?"a MILLION dollars. you did the thing.":`crossed ${short(m)}. look how far we've come.`;
+  document.getElementById('cel').style.display='flex';confetti();}
+document.getElementById('celClose').onclick=()=>document.getElementById('cel').style.display='none';
+document.getElementById('cel').onclick=e=>{if(e.target.id==='cel')document.getElementById('cel').style.display='none';};
+document.getElementById('demoBtn').onclick=()=>{const n=MILESTONES.find(m=>total<m)||1000000;celebrate(n);};
+
+/* ---------- LOAD DATA FROM GOOGLE SHEET, THEN RENDER ---------- */
+// Minimal CSV parser (handles quoted fields & commas inside quotes)
+function parseCSV(text){
+  const rows=[];let row=[],cell='',q=false;
+  for(let i=0;i<text.length;i++){const ch=text[i];
+    if(q){ if(ch==='"'&&text[i+1]==='"'){cell+='"';i++;} else if(ch==='"'){q=false;} else cell+=ch; }
+    else { if(ch==='"')q=true; else if(ch===','){row.push(cell);cell='';} else if(ch==='\n'){row.push(cell);rows.push(row);row=[];cell='';} else if(ch!=='\r')cell+=ch; }
+  }
+  if(cell.length||row.length){row.push(cell);rows.push(row);}
+  return rows;
+}
+function rowsToEntries(rows){
+  if(!rows.length)return [];
+  const head=rows[0].map(h=>h.trim().toLowerCase());
+  const iS=head.indexOf('stream'), iA=head.indexOf('amount'), iL=head.indexOf('label');
+  const out=[];
+  for(let r=1;r<rows.length;r++){
+    const c=rows[r]; if(!c||!c.length)continue;
+    const stream=(c[iS]||'').trim();
+    const amount=parseFloat(String(c[iA]||'').replace(/[$,\s]/g,''));
+    if(!stream||isNaN(amount))continue;
+    out.push({stream, amount, label:(c[iL]||'').trim()});
+  }
+  return out;
+}
+function showError(msg){
+  const money=document.getElementById('money')||document.querySelector('.money');
+  document.querySelector('.hero').innerHTML=
+    '<div style="text-align:center;width:100%;color:var(--cream);padding:20px">'
+    +'<div style="font-weight:800;font-size:28px;color:var(--magenta)">no data yet</div>'
+    +'<div style="font-family:Space Mono,monospace;font-size:13px;color:var(--sky);margin-top:10px">'+msg+'</div></div>';
+}
+async function boot(){
+  try{
+    const res=await fetch(DATA_URL,{cache:'no-store'});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const entries=rowsToEntries(parseCSV(await res.text()));
+    if(!entries.length)throw new Error('data.csv reached but no valid rows found');
+    ENTRIES=entries;
+    init();
+  }catch(err){
+    console.error('data.csv load failed:',err);
+    showError("can't read data.csv — check the file exists in the repo");
+  }
+}
+boot();
+</script>
+</body>
+</html>
