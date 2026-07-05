@@ -86,7 +86,7 @@
   .pie .center .cv{font-weight:800;font-size:26px;color:var(--cream)}
   .pie .center .cl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
   .legend{display:flex;flex-direction:column;gap:11px;width:100%}
-  .lrow{display:grid;grid-template-columns:16px 1fr auto;gap:12px;align-items:center;background:rgba(253,252,245,.1);padding:9px 14px;border-radius:16px}
+  .lrow{display:grid;grid-template-columns:16px 1fr 100px;gap:12px;align-items:center;background:rgba(253,252,245,.1);padding:9px 14px;border-radius:16px}
   .lsw{width:16px;height:16px;border-radius:6px;border:2px solid var(--cream)}
   .lname{font-weight:600;font-size:14px;color:var(--cream)}
   .lname small{display:block;font-family:'Space Mono',monospace;font-size:10px;color:#9a8fb0;font-weight:400}
@@ -123,8 +123,8 @@
   </section>
 
   <div class="encourage">
+    <div class="etext"><div class="eline" id="eline">a gif(t) for you</div></div>
     <div class="egif" id="egif"></div>
-    <div class="etext"><div class="eline" id="eline">you're doing amazing</div></div>
   </div>
 
   <div class="ribbonbox"><svg class="ribbonsvg" id="ribbon" viewBox="0 0 600 160" preserveAspectRatio="xMidYMid meet"></svg></div>
@@ -184,7 +184,7 @@ const ENCOURAGEMENT_GIFS = [
   "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZGdoZHNvZmkxb3pwbjloNHllaHN1ejYzeGJjb2N5bW0wM216Z2Y0ZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uB9M96WBK3K97jHSaI/giphy.gif",
 ];
 const ENCOURAGEMENT_LINES = [
-  "best team ever"
+  "a gif(t) for you"
 ];
 const FALLBACK_GIF = "https://i.pinimg.com/originals/c4/47/88/c44788f45741b706b1323f2f0f186319.gif";
 /* ▲▲▲  STOP EDITING  ▲▲▲ */
@@ -330,7 +330,7 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
   const leg=document.getElementById('legend');
   ORDER.forEach(s=>{const row=document.createElement('div');row.className='lrow';
     const base=STREAM_META[s].color, light=lighten(base,0.6);
-    row.innerHTML=`<span class="lsw" style="background:linear-gradient(135deg, ${light}, ${base})"></span><span class="lname">${s}<small>${STREAM_META[s].note}</small></span><span class="lval">$${fmt(by[s])}</span>`;leg.appendChild(row);});
+    row.innerHTML=`<span class="lsw" style="background:linear-gradient(135deg, ${light}, ${base})"></span><span class="lname">${s}<small>${STREAM_META[s].note}</small></span><span class="lval" style="color:${base}">$${fmt(by[s])}</span>`;leg.appendChild(row);});
 })();
 
 } /* ---- end init() ---- */
