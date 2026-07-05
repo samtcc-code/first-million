@@ -14,7 +14,7 @@
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
-OWNER="YOUR_GITHUB_USERNAME"
+OWNER="samtcc-code"
 REPO="first-million"
 BRANCH="main"
 FILE="data.csv"
