@@ -48,7 +48,7 @@
   /* hero blobby container */
   .hero{background:var(--ink);border-radius:46px 46px 52px 40px;padding:40px;display:grid;grid-template-columns:1fr 260px;gap:30px;align-items:center;box-shadow:10px 12px 0 var(--grape);margin-bottom:22px}
   @media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center;box-shadow:6px 8px 0 var(--grape)}}
-  .hero .cash{color:var(--cream)}
+  .hero .cash{color:var(--cream);text-align:center}
   .money{font-weight:800;font-size:clamp(56px,13vw,120px);line-height:.86;letter-spacing:-.04em;color:var(--lime)}
   .money .d{color:var(--magenta)}
   .ofline{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.02em;color:var(--sky);margin-top:10px}
@@ -69,7 +69,6 @@
   @media(min-width:701px){.egif{width:230px}}
   .egif img{width:100%;height:100%;object-fit:cover}
   .etext{flex:1;text-align:center;padding:6px 10px}
-  @media(min-width:701px){.etext{text-align:left}}
   .eline{font-weight:800;font-size:clamp(22px,3.4vw,32px);line-height:1.02;color:var(--ink);transition:opacity .45s}
 
   /* ribbon */
@@ -327,12 +326,15 @@ if(reached.length)setTimeout(()=>celebrate(reached[reached.length-1]),2400);
 /* ---------- ENCOURAGEMENT ---------- */
 (function(){
   const box=document.getElementById('egif'),line=document.getElementById('eline');
-  let i=Math.floor(Math.random()*ENCOURAGEMENT_GIFS.length);
+  function pick(arr,last){if(arr.length<=1)return 0;let n;do{n=Math.floor(Math.random()*arr.length);}while(n===last);return n;}
+  let lastGif=-1,lastLine=-1;
   function show(){box.innerHTML='';const img=new Image();
+    const gi=pick(ENCOURAGEMENT_GIFS,lastGif);lastGif=gi;
+    const li=pick(ENCOURAGEMENT_LINES,lastLine);lastLine=li;
     img.onerror=()=>{const f=new Image();f.src=FALLBACK_GIF;box.innerHTML='';box.appendChild(f);};
     img.onload=()=>{box.innerHTML='';box.appendChild(img);};
-    img.src=ENCOURAGEMENT_GIFS[i%ENCOURAGEMENT_GIFS.length];
-    line.style.opacity=0;setTimeout(()=>{line.textContent=ENCOURAGEMENT_LINES[i%ENCOURAGEMENT_LINES.length];line.style.opacity=1;},400);i++;}
+    img.src=ENCOURAGEMENT_GIFS[gi];
+    line.style.opacity=0;setTimeout(()=>{line.textContent=ENCOURAGEMENT_LINES[li];line.style.opacity=1;},400);}
   show();setInterval(show,7000);
 })();
 
@@ -341,9 +343,11 @@ function confetti(){const c=['#c2f04a','#ff3d9a','#7b2ff7','#ff6b1a','#4ad9ff'];
   for(let i=0;i<110;i++){const p=document.createElement('div');p.className='confetti';p.style.left=Math.random()*100+'vw';p.style.background=c[i%c.length];const dur=2.6+Math.random()*1.9;
     p.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translateY(105vh) rotate(${Math.random()*760}deg)`,opacity:.85}],{duration:dur*1000,easing:'cubic-bezier(.4,.1,.6,1)'});
     document.body.appendChild(p);setTimeout(()=>p.remove(),dur*1000);}}
-let gi=Math.floor(Math.random()*CELEBRATION_GIFS.length);
-function celebrate(m){const box=document.getElementById('gifbox');gi=(gi+1)%CELEBRATION_GIFS.length;box.innerHTML='';
-  const img=new Image();img.onerror=()=>{const f=new Image();f.src=FALLBACK_GIF;box.innerHTML='';box.appendChild(f);};img.src=CELEBRATION_GIFS[gi];box.appendChild(img);
+let lastCelGif=-1;
+function celebrate(m){const box=document.getElementById('gifbox');
+  if(CELEBRATION_GIFS.length>1){let n;do{n=Math.floor(Math.random()*CELEBRATION_GIFS.length);}while(n===lastCelGif);lastCelGif=n;}else{lastCelGif=0;}
+  box.innerHTML='';
+  const img=new Image();img.onerror=()=>{const f=new Image();f.src=FALLBACK_GIF;box.innerHTML='';box.appendChild(f);};img.src=CELEBRATION_GIFS[lastCelGif];box.appendChild(img);
   document.getElementById('celTitle').textContent=short(m)+' — '+MS_LABEL[m];
   document.getElementById('celMsg').textContent=m===1000000?"a MILLION dollars. you did the thing.":`crossed ${short(m)}. look how far we've come.`;
   document.getElementById('cel').style.display='flex';confetti();}
