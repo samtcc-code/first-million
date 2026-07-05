@@ -40,6 +40,11 @@
 
   .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:40px 22px 90px}
 
+  /* brand sticker */
+  .brandbar{text-align:center;margin-bottom:26px}
+  .brandmark{display:inline-flex;align-items:center;background:var(--cream);border:3px solid var(--ink);border-radius:20px 24px 18px 26px;padding:10px 20px;box-shadow:5px 6px 0 var(--tiger);transform:rotate(-1.5deg)}
+  .brandmark img{display:block;height:26px;width:auto}
+
   /* title */
   .mast{text-align:center;margin-bottom:30px}
   .mast h1{font-weight:800;font-size:clamp(38px,8vw,86px);line-height:.92;letter-spacing:-.03em;color:var(--ink);position:relative;display:inline-block;transform:rotate(-2deg)}
@@ -47,8 +52,7 @@
   .mast h1::after{content:"";position:absolute;left:6%;right:6%;bottom:2px;height:14px;background:var(--chartreuse);z-index:-1;border-radius:20px;transform:rotate(1deg)}
 
   /* hero blobby container */
-  .hero{background:var(--ink);border-radius:46px 46px 52px 40px;padding:40px;display:grid;grid-template-columns:1fr 260px;gap:30px;align-items:center;box-shadow:10px 12px 0 var(--amber);margin-bottom:22px}
-  @media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center;box-shadow:6px 8px 0 var(--amber)}}
+  .hero{background:var(--ink);border-radius:46px 46px 52px 40px;padding:40px;display:grid;grid-template-columns:1fr;justify-items:center;gap:30px;text-align:center;box-shadow:8px 10px 0 var(--amber);margin-bottom:22px}
   .hero .cash{color:var(--cream);text-align:center}
   .money{font-weight:800;font-size:clamp(56px,13vw,120px);line-height:.86;letter-spacing:-.04em;color:var(--green)}
   .money .d{color:var(--tiger)}
@@ -64,12 +68,10 @@
   .jarpct{font-family:'Space Mono',monospace;font-weight:700;font-size:15px;color:var(--green);margin-top:6px;background:var(--ink);padding:4px 12px;border-radius:12px}
 
   /* encouragement sticker */
-  .encourage{background:var(--green);border-radius:34px 30px 40px 32px;padding:14px;display:flex;flex-direction:column;gap:12px;margin-bottom:26px;box-shadow:7px 8px 0 var(--ink);transform:rotate(.6deg)}
-  @media(min-width:701px){.encourage{flex-direction:row;align-items:center}}
-  .egif{width:100%;max-width:230px;height:140px;border-radius:24px;overflow:hidden;background:var(--amber);flex:none;display:flex;align-items:center;justify-content:center;border:3px solid var(--ink);margin:0 auto}
-  @media(min-width:701px){.egif{width:230px}}
-  .egif img{width:100%;height:100%;object-fit:cover}
-  .etext{flex:1;text-align:center;padding:6px 10px}
+  .encourage{background:var(--green);border-radius:34px 30px 40px 32px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:26px;box-shadow:7px 8px 0 var(--ink);transform:rotate(.6deg)}
+  .egif{max-width:100%;max-height:260px;border-radius:24px;overflow:hidden;border:3px solid var(--ink);line-height:0}
+  .egif img{display:block;max-width:100%;max-height:260px;width:auto;height:auto}
+  .etext{text-align:center;padding:6px 10px}
   .eline{font-weight:800;font-size:clamp(22px,3.4vw,32px);line-height:1.02;color:var(--ink);transition:opacity .45s}
 
   /* ribbon */
@@ -77,8 +79,7 @@
   .ribbonsvg{width:100%;min-width:580px;height:160px;display:block}
 
   /* pie */
-  .piewrap{background:var(--navy);border-radius:42px 38px 34px 46px;padding:34px;display:grid;grid-template-columns:220px 1fr;gap:34px;align-items:center;box-shadow:7px 8px 0 var(--ink)}
-  @media(max-width:640px){.piewrap{grid-template-columns:1fr;justify-items:center;text-align:center;gap:24px}}
+  .piewrap{background:var(--navy);border-radius:42px 38px 34px 46px;padding:34px;display:grid;grid-template-columns:1fr;justify-items:center;text-align:center;gap:24px;box-shadow:7px 8px 0 var(--ink)}
   .pie{width:200px;height:200px;position:relative}
   .pie svg{transform:rotate(-90deg)}
   .pie .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
@@ -99,6 +100,9 @@
 <div class="goo"><div class="blob-bg bg1"></div><div class="blob-bg bg2"></div><div class="blob-bg bg3"></div></div>
 
 <div class="wrap">
+  <div class="brandbar">
+    <div class="brandmark"><img src="logo.svg" alt="The Continuity Co."></div>
+  </div>
   <header class="mast">
     <h1>Our First <span class="pop">Million</span></h1>
   </header>
