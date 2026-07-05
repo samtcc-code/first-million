@@ -13,13 +13,13 @@
      Gifs: CELEBRATION_GIFS, ENCOURAGEMENT_GIFS, FALLBACK_GIF.
      ============================================================ */
   :root{
-    --lime:#c2f04a;
-    --magenta:#ff3d9a;
-    --grape:#7b2ff7;
-    --tang:#ff6b1a;
+    --lime:#9FDBC4;
+    --magenta:#C9DBBA;
+    --grape:#DCDBA8;
+    --tang:#FAA381;
     --cream:#fdfcf5;
     --ink:#141018;
-    --sky:#4ad9ff;
+    --sky:#75DBCD;
     --shadow:rgba(20,16,24,.16);
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -65,7 +65,7 @@
   /* encouragement sticker */
   .encourage{background:var(--lime);border-radius:34px 30px 40px 32px;padding:14px;display:flex;flex-direction:column;gap:12px;margin-bottom:26px;box-shadow:7px 8px 0 var(--ink);transform:rotate(.6deg)}
   @media(min-width:701px){.encourage{flex-direction:row;align-items:center}}
-  .egif{width:100%;max-width:230px;height:140px;border-radius:24px;overflow:hidden;background:#a6d43f;flex:none;display:flex;align-items:center;justify-content:center;border:3px solid var(--ink);margin:0 auto}
+  .egif{width:100%;max-width:230px;height:140px;border-radius:24px;overflow:hidden;background:#F3C677;flex:none;display:flex;align-items:center;justify-content:center;border:3px solid var(--ink);margin:0 auto}
   @media(min-width:701px){.egif{width:230px}}
   .egif img{width:100%;height:100%;object-fit:cover}
   .etext{flex:1;text-align:center;padding:6px 10px}
@@ -87,7 +87,7 @@
   .lrow{display:grid;grid-template-columns:16px 1fr auto;gap:12px;align-items:center;background:rgba(253,252,245,.1);padding:9px 14px;border-radius:16px}
   .lsw{width:16px;height:16px;border-radius:6px;border:2px solid var(--ink)}
   .lname{font-weight:600;font-size:14px;color:var(--cream)}
-  .lname small{display:block;font-family:'Space Mono',monospace;font-size:10px;color:#d6c8f5;font-weight:400}
+  .lname small{display:block;font-family:'Space Mono',monospace;font-size:10px;color:#B33F62;font-weight:400}
   .lval{font-weight:800;font-size:16px;color:var(--lime);text-align:right}
 
   /* hidden preview btn (shows only with ?preview) */
@@ -193,11 +193,11 @@ const GOAL=1000000;
 const MILESTONES=[100000,250000,500000,750000,1000000];
 const MS_LABEL={100000:"first $100k",250000:"quarter way",500000:"halfway",750000:"almost there",1000000:"one million"};
 const STREAM_META={
-  "Embedded Leadership":{note:"retainers & project fees",color:"#c2f04a"},
-  "Handover Plan":{note:"tool + service",color:"#ff3d9a"},
-  "Continuity Kit":{note:"digital tool",color:"#4ad9ff"},
-  "Speaking & Services":{note:"talks & consults",color:"#ff6b1a"},
-  "Meta":{note:"IG + FB payouts",color:"#ffd93d"},
+  "Embedded Leadership":{note:"retainers & project fees",color:"#9FDBC4"},
+  "Handover Plan":{note:"tool + service",color:"#C9DBBA"},
+  "Continuity Kit":{note:"digital tool",color:"#75DBCD"},
+  "Speaking & Services":{note:"talks & consults",color:"#FAA381"},
+  "Meta":{note:"IG + FB payouts",color:"#FAAB8C"},
 };
 const ORDER=["Embedded Leadership","Handover Plan","Continuity Kit","Speaking & Services","Meta"];
 const fmt=n=>n.toLocaleString('en-US',{maximumFractionDigits:n<100?2:0});
@@ -235,10 +235,10 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
   const defs=document.createElementNS(NS,'defs');
   defs.innerHTML=`<clipPath id="beakerclip"><path d="${body}"/></clipPath>
     <linearGradient id="jargrad" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0" stop-color="#ff3d9a"/><stop offset="1" stop-color="#7b2ff7"/></linearGradient>`;
+      <stop offset="0" stop-color="#C9DBBA"/><stop offset="1" stop-color="#DCDBA8"/></linearGradient>`;
   svg.appendChild(defs);
   // empty-glass tint
-  const bg=document.createElementNS(NS,'path');bg.setAttribute('d',body);bg.setAttribute('fill','#241a33');svg.appendChild(bg);
+  const bg=document.createElementNS(NS,'path');bg.setAttribute('d',body);bg.setAttribute('fill','#0c0a3e');svg.appendChild(bg);
   // fill range: liquid moves between botY (0%) and goalY (100%)
   const goalY=topY+14;              // the $1M line, near the top
   const zeroY=botY;                 // empty level
@@ -255,23 +255,23 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
     const ty=zeroY-(i/4)*(zeroY-goalY);
     const tick=document.createElementNS(NS,'line');
     tick.setAttribute('x1',botR-2-i*0.5);tick.setAttribute('x2',botR-14);tick.setAttribute('y1',ty);tick.setAttribute('y2',ty);
-    tick.setAttribute('stroke','#c2f04a');tick.setAttribute('stroke-width','2');tick.setAttribute('opacity','.55');svg.appendChild(tick);
+    tick.setAttribute('stroke','#9FDBC4');tick.setAttribute('stroke-width','2');tick.setAttribute('opacity','.55');svg.appendChild(tick);
   }
   // dashed GOAL line at $1M
-  const gl=document.createElementNS(NS,'line');gl.setAttribute('x1',topL-4);gl.setAttribute('x2',topR+4);gl.setAttribute('y1',goalY);gl.setAttribute('y2',goalY);gl.setAttribute('stroke','#c2f04a');gl.setAttribute('stroke-width','2.5');gl.setAttribute('stroke-dasharray','6 4');svg.appendChild(gl);
-  const glt=document.createElementNS(NS,'text');glt.setAttribute('x',topR+8);glt.setAttribute('y',goalY+4);glt.setAttribute('font-family','Space Mono,monospace');glt.setAttribute('font-size','10');glt.setAttribute('font-weight','700');glt.setAttribute('fill','#c2f04a');glt.textContent='$1M';svg.appendChild(glt);
+  const gl=document.createElementNS(NS,'line');gl.setAttribute('x1',topL-4);gl.setAttribute('x2',topR+4);gl.setAttribute('y1',goalY);gl.setAttribute('y2',goalY);gl.setAttribute('stroke','#9FDBC4');gl.setAttribute('stroke-width','2.5');gl.setAttribute('stroke-dasharray','6 4');svg.appendChild(gl);
+  const glt=document.createElementNS(NS,'text');glt.setAttribute('x',topR+8);glt.setAttribute('y',goalY+4);glt.setAttribute('font-family','Space Mono,monospace');glt.setAttribute('font-size','10');glt.setAttribute('font-weight','700');glt.setAttribute('fill','#9FDBC4');glt.textContent='$1M';svg.appendChild(glt);
   // "you are here" arrow at current level (only if not basically empty/full)
   setTimeout(()=>{
     const arrow=document.createElementNS(NS,'g');arrow.setAttribute('opacity','0');
     const ax=botL-10;
-    arrow.innerHTML=`<text x="${ax-2}" y="${level-6}" text-anchor="end" font-family="Space Mono,monospace" font-size="8.5" font-weight="700" fill="#4ad9ff">you are<tspan x="${ax-2}" dy="10">here</tspan></text>
-      <path d="M ${ax+4} ${level} l -10 -5 l 0 10 Z" fill="#4ad9ff"/>
-      <line x1="${ax-6}" y1="${level}" x2="${ax+4}" y2="${level}" stroke="#4ad9ff" stroke-width="2"/>`;
+    arrow.innerHTML=`<text x="${ax-2}" y="${level-6}" text-anchor="end" font-family="Space Mono,monospace" font-size="8.5" font-weight="700" fill="#75DBCD">you are<tspan x="${ax-2}" dy="10">here</tspan></text>
+      <path d="M ${ax+4} ${level} l -10 -5 l 0 10 Z" fill="#75DBCD"/>
+      <line x1="${ax-6}" y1="${level}" x2="${ax+4}" y2="${level}" stroke="#75DBCD" stroke-width="2"/>`;
     svg.appendChild(arrow);
     arrow.style.transition='opacity .6s';requestAnimationFrame(()=>arrow.setAttribute('opacity','1'));
   },1400);
   // glass outline + spout on top
-  const outline=document.createElementNS(NS,'path');outline.setAttribute('d',body);outline.setAttribute('fill','none');outline.setAttribute('stroke','#c2f04a');outline.setAttribute('stroke-width','4');outline.setAttribute('stroke-linejoin','round');svg.appendChild(outline);
+  const outline=document.createElementNS(NS,'path');outline.setAttribute('d',body);outline.setAttribute('fill','none');outline.setAttribute('stroke','#9FDBC4');outline.setAttribute('stroke-width','4');outline.setAttribute('stroke-linejoin','round');svg.appendChild(outline);
   // shine streak
   const sh=document.createElementNS(NS,'rect');sh.setAttribute('x','48');sh.setAttribute('y','44');sh.setAttribute('width','7');sh.setAttribute('height','92');sh.setAttribute('rx','4');sh.setAttribute('fill','rgba(255,255,255,.3)');svg.appendChild(sh);
 })();
@@ -284,21 +284,21 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
   const base=document.createElementNS(NS,'path');base.setAttribute('d',pathD);base.setAttribute('fill','none');base.setAttribute('stroke','#e7dfc9');base.setAttribute('stroke-width','16');base.setAttribute('stroke-linecap','round');svg.appendChild(base);
   const L=base.getTotalLength();
   const defs=document.createElementNS(NS,'defs');
-  defs.innerHTML=`<linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff6b1a"/><stop offset="0.5" stop-color="#ff3d9a"/><stop offset="1" stop-color="#7b2ff7"/></linearGradient>`;svg.appendChild(defs);
+  defs.innerHTML=`<linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FAA381"/><stop offset="0.5" stop-color="#C9DBBA"/><stop offset="1" stop-color="#DCDBA8"/></linearGradient>`;svg.appendChild(defs);
   const prog=document.createElementNS(NS,'path');prog.setAttribute('d',pathD);prog.setAttribute('fill','none');prog.setAttribute('stroke','url(#rg)');prog.setAttribute('stroke-width','16');prog.setAttribute('stroke-linecap','round');prog.setAttribute('stroke-dasharray',L);prog.setAttribute('stroke-dashoffset',L);svg.appendChild(prog);
   setTimeout(()=>{prog.style.transition='stroke-dashoffset 2s cubic-bezier(.3,.8,.3,1)';prog.setAttribute('stroke-dashoffset',L*(1-pct/100));},350);
   const nextMs=MILESTONES.find(m=>total<m);
   MILESTONES.forEach(m=>{
     const pt=base.getPointAtLength(L*(m/GOAL));
     const hit=total>=m,isNext=m===nextMs;
-    const col=STREAM_META&&hit?'#ff3d9a':'#fff';
+    const col=STREAM_META&&hit?'#C9DBBA':'#fff';
     const g=document.createElementNS(NS,'g');
     // googly blob marker
-    const c=document.createElementNS(NS,'circle');c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);c.setAttribute('r',hit?12:9);c.setAttribute('fill',hit?'#c2f04a':'#fdfcf5');c.setAttribute('stroke','#141018');c.setAttribute('stroke-width',isNext?4:3);g.appendChild(c);
+    const c=document.createElementNS(NS,'circle');c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);c.setAttribute('r',hit?12:9);c.setAttribute('fill',hit?'#9FDBC4':'#fdfcf5');c.setAttribute('stroke','#141018');c.setAttribute('stroke-width',isNext?4:3);g.appendChild(c);
     if(hit){const chk=document.createElementNS(NS,'path');chk.setAttribute('d',`M ${pt.x-4} ${pt.y} l 3 3.4 l 6 -7`);chk.setAttribute('fill','none');chk.setAttribute('stroke','#141018');chk.setAttribute('stroke-width','2.6');chk.setAttribute('stroke-linecap','round');chk.setAttribute('stroke-linejoin','round');g.appendChild(chk);}
     if(isNext){c.style.transformOrigin=`${pt.x}px ${pt.y}px`;const an=document.createElementNS(NS,'animateTransform');an.setAttribute('attributeName','transform');an.setAttribute('type','scale');an.setAttribute('values','1;1.18;1');an.setAttribute('dur','1.3s');an.setAttribute('repeatCount','indefinite');an.setAttribute('additive','sum');c.appendChild(an);}
     const t1=document.createElementNS(NS,'text');t1.setAttribute('x',pt.x);t1.setAttribute('y',pt.y-20);t1.setAttribute('text-anchor','middle');t1.setAttribute('font-family','Bricolage Grotesque,sans-serif');t1.setAttribute('font-size','17');t1.setAttribute('font-weight','800');t1.setAttribute('fill','#141018');t1.textContent=short(m);g.appendChild(t1);
-    const t2=document.createElementNS(NS,'text');t2.setAttribute('x',pt.x);t2.setAttribute('y',pt.y+28);t2.setAttribute('text-anchor','middle');t2.setAttribute('font-family','Space Mono,monospace');t2.setAttribute('font-size','8');t2.setAttribute('letter-spacing','.5');t2.setAttribute('fill',hit?'#7b2ff7':(isNext?'#ff3d9a':'#9a8fb0'));t2.textContent=(hit?MS_LABEL[m]:(isNext?short(m-total)+' to go':MS_LABEL[m]));g.appendChild(t2);
+    const t2=document.createElementNS(NS,'text');t2.setAttribute('x',pt.x);t2.setAttribute('y',pt.y+28);t2.setAttribute('text-anchor','middle');t2.setAttribute('font-family','Space Mono,monospace');t2.setAttribute('font-size','8');t2.setAttribute('letter-spacing','.5');t2.setAttribute('fill',hit?'#DCDBA8':(isNext?'#C9DBBA':'#9a8fb0'));t2.textContent=(hit?MS_LABEL[m]:(isNext?short(m-total)+' to go':MS_LABEL[m]));g.appendChild(t2);
     svg.appendChild(g);
   });
 })();
@@ -339,7 +339,7 @@ if(reached.length)setTimeout(()=>celebrate(reached[reached.length-1]),2400);
 })();
 
 /* ---------- CELEBRATION ---------- */
-function confetti(){const c=['#c2f04a','#ff3d9a','#7b2ff7','#ff6b1a','#4ad9ff'];
+function confetti(){const c=['#9FDBC4','#C9DBBA','#DCDBA8','#FAA381','#75DBCD'];
   for(let i=0;i<110;i++){const p=document.createElement('div');p.className='confetti';p.style.left=Math.random()*100+'vw';p.style.background=c[i%c.length];const dur=2.6+Math.random()*1.9;
     p.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translateY(105vh) rotate(${Math.random()*760}deg)`,opacity:.85}],{duration:dur*1000,easing:'cubic-bezier(.4,.1,.6,1)'});
     document.body.appendChild(p);setTimeout(()=>p.remove(),dur*1000);}}
