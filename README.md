@@ -21,13 +21,13 @@ The board re-reads `data.csv` on every page load, so updating the file
 
 ```
 stream,amount,label
-Embedded Leadership,30000,Client B
+Embedded Leadership Plan,30000,Client B
 Meta,1.47,First payout
 ```
 
 - **stream** — must be one of, spelled exactly:
-  `Embedded Leadership`, `Handover Plan`, `Continuity Kit`,
-  `Speaking & Services`, `Meta`
+  `Embedded Leadership Plan`, `Fundraising Plan`, `Handover Plan`,
+  `Build Plan`, `Continuity Kit`, `Speaking & Services`, `Meta`
 - **amount** — a number. `$` and commas are fine (`$30,000` works).
 - **label** — a short note so you can spot double-entries. Commas OK
   if the label is wrapped in "quotes".
@@ -38,7 +38,7 @@ One row per payment received.
 1. **GitHub web UI** — click `data.csv` → pencil icon → edit → commit.
    (Easiest for non-technical folks. Commit to a branch + merge, or
    straight to main.)
-2. **Ask Claude Code** — "add a $10k Embedded Leadership payment to
+2. **Ask Claude Code** — "add a $10k Embedded Leadership Plan payment to
    data.csv and push" — it'll handle the edit + commit.
 3. **git** — edit locally, `git commit`, `git push`.
 4. **curl** — run `./update-data.sh new-data.csv` (see that file for
