@@ -68,7 +68,13 @@
   .jarpct{font-family:'Space Mono',monospace;font-weight:700;font-size:15px;color:var(--green);margin-top:6px;background:var(--ink);padding:4px 12px;border-radius:12px}
 
   /* time tracker */
-  .clock{background:var(--cream);border:3px solid var(--ink);border-radius:36px 40px 34px 42px;padding:30px 28px 28px;margin-bottom:26px;box-shadow:7px 8px 0 var(--tiger);text-align:center}
+  .clock{background:var(--cream);border:3px solid var(--ink);border-radius:36px 40px 34px 42px;margin-top:26px;box-shadow:7px 8px 0 var(--tiger);text-align:center}
+  .clock summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 14px;padding:20px 28px;font-family:'Space Mono',monospace;font-size:14px;border-radius:inherit}
+  .clock summary::-webkit-details-marker{display:none}
+  .clock summary b{font-size:16px}
+  .clk-chev{width:9px;height:9px;border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);transform:rotate(45deg) translate(-2px,-2px);transition:transform .25s}
+  .clock[open] .clk-chev{transform:rotate(-135deg) translate(-2px,-2px)}
+  .clk-body{padding:0 28px 28px}
   .clk-range{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.04em;color:#5f5870}
   .clk-days{font-weight:800;font-size:clamp(52px,12vw,104px);line-height:.9;letter-spacing:-.04em;margin-top:10px}
   .clk-days small{display:block;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:10px}
@@ -134,22 +140,6 @@
     </div>
   </section>
 
-  <div class="clock">
-    <div class="clk-range" id="clkRange"></div>
-    <div class="clk-days"><span id="clkNum">0</span><small id="clkLab">days left</small></div>
-    <div class="clk-bars">
-      <div>
-        <div class="clk-lab"><span>time used</span><b id="timePct">0%</b></div>
-        <div class="clk-track"><div class="clk-fill clk-time" id="timeFill"></div></div>
-      </div>
-      <div>
-        <div class="clk-lab"><span>revenue</span><b id="moneyPct">0%</b></div>
-        <div class="clk-track"><div class="clk-fill clk-money" id="moneyFill"></div></div>
-      </div>
-    </div>
-    <div class="clk-note" id="clkNote"></div>
-  </div>
-
   <div class="encourage">
     <div class="etext"><div class="eline" id="eline">a gif(t) for you</div></div>
     <div class="egif" id="egif"></div>
@@ -164,6 +154,25 @@
     </div>
     <div class="legend" id="legend"></div>
   </div>
+
+  <details class="clock" id="clock">
+    <summary><span>time check</span><b id="clkSum">0 days left</b><i class="clk-chev"></i></summary>
+    <div class="clk-body">
+      <div class="clk-range" id="clkRange"></div>
+      <div class="clk-days"><span id="clkNum">0</span><small id="clkLab">days left</small></div>
+      <div class="clk-bars">
+        <div>
+          <div class="clk-lab"><span>time used</span><b id="timePct">0%</b></div>
+          <div class="clk-track"><div class="clk-fill clk-time" id="timeFill"></div></div>
+        </div>
+        <div>
+          <div class="clk-lab"><span>revenue</span><b id="moneyPct">0%</b></div>
+          <div class="clk-track"><div class="clk-fill clk-money" id="moneyFill"></div></div>
+        </div>
+      </div>
+      <div class="clk-note" id="clkNote"></div>
+    </div>
+  </details>
 </div>
 
 <script>
@@ -388,10 +397,14 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
   else if(left<31) note=short(remaining)+' to go · about '+short(remaining/left)+' a day to make it';
   else note=short(remaining)+' to go · about '+short(remaining/(left/30.44))+' a month to make it';
   document.getElementById('clkNote').textContent=note;
-  setTimeout(()=>{
-    document.getElementById('timeFill').style.width=timePct+'%';
-    document.getElementById('moneyFill').style.width=pct+'%';
-  },400);
+  document.getElementById('clkSum').textContent=left+' '+(left===1?'day left':'days left');
+  const clock=document.getElementById('clock');
+  clock.addEventListener('toggle',()=>{
+    setTimeout(()=>{
+      document.getElementById('timeFill').style.width=clock.open?timePct+'%':'0';
+      document.getElementById('moneyFill').style.width=clock.open?pct+'%':'0';
+    },60);
+  });
 })();
 
 } /* ---- end init() ---- */
