@@ -67,6 +67,19 @@
   .blobjar svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
   .jarpct{font-family:'Space Mono',monospace;font-weight:700;font-size:15px;color:var(--green);margin-top:6px;background:var(--ink);padding:4px 12px;border-radius:12px}
 
+  /* time tracker */
+  .clock{background:var(--cream);border:3px solid var(--ink);border-radius:36px 40px 34px 42px;padding:30px 28px 28px;margin-bottom:26px;box-shadow:7px 8px 0 var(--tiger);text-align:center}
+  .clk-range{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.04em;color:#5f5870}
+  .clk-days{font-weight:800;font-size:clamp(52px,12vw,104px);line-height:.9;letter-spacing:-.04em;margin-top:10px}
+  .clk-days small{display:block;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:10px}
+  .clk-bars{max-width:560px;margin:26px auto 0;display:flex;flex-direction:column;gap:14px}
+  .clk-lab{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:12px;margin-bottom:6px}
+  .clk-track{height:22px;border:3px solid var(--ink);border-radius:999px;background:#e7dfc9;overflow:hidden}
+  .clk-fill{height:100%;width:0;border-radius:999px;transition:width 1.6s cubic-bezier(.3,.8,.3,1)}
+  .clk-time{background:var(--amber)}
+  .clk-money{background:linear-gradient(90deg,var(--aqua),var(--green))}
+  .clk-note{font-family:'Space Mono',monospace;font-size:13px;margin-top:20px}
+
   /* encouragement sticker */
   .encourage{background:var(--green);border-radius:34px 30px 40px 32px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:26px;box-shadow:7px 8px 0 var(--ink);transform:rotate(.6deg)}
   .egif{max-width:100%;max-height:260px;border-radius:24px;overflow:hidden;border:3px solid var(--ink);line-height:0}
@@ -109,7 +122,7 @@
   <section class="hero">
     <div class="cash">
       <div class="money"><span class="d">$</span><span id="total">0</span></div>
-      <div class="ofline">of <b>$1,000,000</b></div>
+      <div class="ofline">of <b>$1,000,000</b> by <b id="deadlineTxt"></b></div>
       <div><span class="pctbig" id="pct">0%</span></div>
       <div class="togo" id="togo"></div>
     </div>
@@ -120,6 +133,22 @@
       <div class="jarpct" id="jarpct">0%</div>
     </div>
   </section>
+
+  <div class="clock">
+    <div class="clk-range" id="clkRange"></div>
+    <div class="clk-days"><span id="clkNum">0</span><small id="clkLab">days left</small></div>
+    <div class="clk-bars">
+      <div>
+        <div class="clk-lab"><span>time used</span><b id="timePct">0%</b></div>
+        <div class="clk-track"><div class="clk-fill clk-time" id="timeFill"></div></div>
+      </div>
+      <div>
+        <div class="clk-lab"><span>revenue</span><b id="moneyPct">0%</b></div>
+        <div class="clk-track"><div class="clk-fill clk-money" id="moneyFill"></div></div>
+      </div>
+    </div>
+    <div class="clk-note" id="clkNote"></div>
+  </div>
 
   <div class="encourage">
     <div class="etext"><div class="eline" id="eline">a gif(t) for you</div></div>
@@ -145,6 +174,8 @@
    update the board. No external services. Live-only: no file = no board.
    ================================================================ */
 const DATA_URL = "data.csv"; // relative path in the repo
+const START_DATE = "2025-08-11"; // first revenue day (YYYY-MM-DD)
+const DEADLINE = "2027-06-01";   // the day we hit $1M (YYYY-MM-DD)
 
 let ENTRIES = [];  // filled from data.csv at load
 
@@ -332,6 +363,35 @@ document.getElementById('togo').textContent=total>=GOAL?'>> WE DID IT <<':short(
   ORDER.forEach(s=>{const row=document.createElement('div');row.className='lrow';
     const base=STREAM_META[s].color, light=lighten(base,0.6);
     row.innerHTML=`<span class="lsw" style="background:linear-gradient(135deg, ${light}, ${base})"></span><span class="lname">${s}</span><span class="lval" style="color:${base}">$${fmt(by[s])}</span>`;leg.appendChild(row);});
+})();
+
+/* ---------- TIME TRACKER ---------- */
+(function(){
+  const DAY=86400000;
+  const fmtD=d=>d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const start=new Date(START_DATE+'T00:00:00'), end=new Date(DEADLINE+'T00:00:00');
+  const now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const span=Math.round((end-start)/DAY);
+  const elapsed=Math.min(span,Math.max(0,Math.round((today-start)/DAY)));
+  const left=Math.max(0,Math.round((end-today)/DAY));
+  const timePct=elapsed/span*100;
+  const remaining=Math.max(0,GOAL-total);
+  document.getElementById('deadlineTxt').textContent=fmtD(end);
+  document.getElementById('clkRange').textContent=fmtD(start)+' → '+fmtD(end);
+  document.getElementById('clkNum').textContent=left;
+  document.getElementById('clkLab').textContent=left===1?'day left':'days left';
+  document.getElementById('timePct').textContent=Math.round(timePct)+'%';
+  document.getElementById('moneyPct').textContent=pctTxt;
+  let note;
+  if(total>=GOAL) note='goal hit'+(left?' with '+left+' days to spare':'');
+  else if(left===0) note=short(remaining)+' short on deadline day';
+  else if(left<31) note=short(remaining)+' to go · about '+short(remaining/left)+' a day to make it';
+  else note=short(remaining)+' to go · about '+short(remaining/(left/30.44))+' a month to make it';
+  document.getElementById('clkNote').textContent=note;
+  setTimeout(()=>{
+    document.getElementById('timeFill').style.width=timePct+'%';
+    document.getElementById('moneyFill').style.width=pct+'%';
+  },400);
 })();
 
 } /* ---- end init() ---- */

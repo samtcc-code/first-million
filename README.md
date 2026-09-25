@@ -49,6 +49,11 @@ It means `index.html` couldn't read `data.csv`. Check the file exists
 in the repo and is named exactly `data.csv`. The board is intentionally
 live-only: no file, no board (no fake fallback numbers).
 
+## Start date and deadline
+The time tracker reads `START_DATE` and `DEADLINE` (YYYY-MM-DD) from the
+same config block at the top of the `<script>` in `index.html`. Change
+those two lines to move the finish line.
+
 ## Editing gifs / colors
 Open `index.html`. Near the top of the `<script>` you'll find
 `ENCOURAGEMENT_GIFS` and `FALLBACK_GIF` — swap the
